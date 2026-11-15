@@ -2,44 +2,77 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>여기가 딱이긴 현대 | 모임 출발지 지도</title>
+<title>여기가 딱이긴 현대 | 모두가 편한 만남</title>
 <style>
 :root{font-family:Arial,'Noto Sans KR','Malgun Gothic',sans-serif;color:#121212;background:#f5f3f2;font-size:14px;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}body{margin:0;background:#f5f3f2}button,input{font:inherit}button{cursor:pointer;border:1px solid #d9d6d3;border-radius:0;padding:11px 14px;background:#fff;color:#1b2b5b;font-size:13px;font-weight:700;min-height:42px;transition:background .15s ease}button:hover{background:#ebebee}button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid #1b2b5b;outline-offset:2px}button:disabled{opacity:.5;cursor:not-allowed}input{border:1px solid #d8d5d1;border-radius:0;padding:11px 12px;width:100%;min-width:0;background:#fff;color:#111;font-size:13px;min-height:42px}input::placeholder{color:#92908d}
 header{background:#f5f3f2;border-bottom:1px solid #e1dcd4;padding:26px max(24px,calc((100vw - 1230px)/2));display:flex;align-items:flex-end;justify-content:space-between;gap:16px}header b{font-size:23px;letter-spacing:-.7px;font-weight:700;color:#111}header small{font-size:13px;color:#686665;display:block;margin-top:11px}.tag{color:#1b2b5b;border:1px solid #d8d5d1;padding:7px 10px;font-size:11px;font-weight:700;white-space:nowrap;letter-spacing:.3px}
 main{max-width:1270px;padding:26px 20px 40px;margin:auto;display:grid;grid-template-columns:365px minmax(0,1fr);gap:24px;align-items:start}.panel{background:transparent;border:none;border-radius:0;padding:0;box-shadow:none}.panel>h2{font-size:19px;font-weight:700;margin:2px 0 10px;letter-spacing:-.5px}h2{font-size:19px;margin:0 0 10px}p{line-height:1.7;margin:8px 0 15px}.muted{font-size:12px;color:#696766;line-height:1.75}.label{font-size:13px;font-weight:700;margin:22px 0 9px;color:#171717}.primary{background:#1b2b5b;border-color:#1b2b5b;color:#fff}.primary:hover{background:#263e7b;border-color:#263e7b}.secondary{background:transparent;color:#1b2b5b;border:1px solid #d7d3cf}.full{width:100%}.row{display:flex;gap:8px;align-items:center}.status{font-size:12px;background:#e9ebf0;border-left:3px solid #1b2b5b;padding:11px 12px;margin-top:15px;line-height:1.6;color:#243453}.warning{background:#f5eee3;border-left-color:#a37637;color:#6c4e27}
 .person{background:transparent;border:none;border-bottom:1px solid #dedad6;border-radius:0;padding:17px 0 18px;margin:0}.person:first-child{border-top:1px solid #dedad6}.person-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.person-head b{font-size:14px;color:#121212}.person small{display:block;margin-top:6px;color:#77716e;font-size:12px;line-height:1.4}.person .buttons{display:flex;gap:6px;margin-top:8px}.person button{font-size:12px;padding:7px 10px;min-height:36px}.person button.primary{min-height:42px;padding:9px 15px}.person .row{margin-top:12px!important}.search-result{display:block;font-size:12px;border:1px solid #dedad5;border-radius:0;padding:11px 12px;margin-top:5px;cursor:pointer;background:#fff;text-align:left;width:100%;font-weight:400;color:#161616}.search-result:hover{background:#e9ebf0}.search-result strong{font-size:13px}.search-result small{display:block;color:#77716e;margin-top:5px}
-.map-box{position:relative;min-height:570px;border-radius:0;overflow:hidden;background:#e9e9e8;border:1px solid #dedad5}#map{height:570px;width:100%}.map-message{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;color:#77716e;background:repeating-linear-gradient(0deg,#efedeb,#efedeb 39px,#e9e7e5 40px);font-size:14px;line-height:1.9}.map-message[hidden]{display:none}.map-top{position:absolute;z-index:2;left:14px;top:14px;background:#f5f3f2f2;padding:11px 13px;border:1px solid #dedad5;border-radius:0;font-size:12px;color:#1b2b5b;font-weight:700;pointer-events:none}.bubble{padding:7px 10px;background:#1b2b5b;color:white;border-radius:0;border:1px solid #fff;white-space:nowrap;font-weight:700;font-size:12px}.map-tips{margin-top:23px;background:transparent;border-top:1px solid #dedad6;border-bottom:1px solid #dedad6;border-radius:0;padding:15px 0;font-size:12px;color:#666461;line-height:2}.map-tips b{color:#1b2b5b}.keybox{background:transparent;border:1px solid #dedad6;border-radius:0;padding:15px;margin-top:22px}.keybox summary{cursor:pointer;font-weight:700;font-size:13px;color:#1b2b5b}.keybox .label{margin-top:14px}code{background:#e7e5e2;border-radius:0;padding:2px 4px;font-size:11px;overflow-wrap:anywhere}a{color:#1b2b5b;text-decoration:underline;text-underline-offset:3px}footer{text-align:center;color:#83807c;font-size:11px;padding:15px 20px 32px;border-top:1px solid #e1dcd4}#mapInfo{margin-top:12px}
+.map-box{position:relative;min-height:570px;border-radius:0;overflow:hidden;background:#e9e9e8;border:1px solid #dedad5}#map{height:570px;width:100%}.map-message{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;color:#77716e;background:repeating-linear-gradient(0deg,#efedeb,#efedeb 39px,#e9e7e5 40px);font-size:14px;line-height:1.9}.map-message{white-space:pre-line}.map-message[hidden]{display:none}.map-top{position:absolute;z-index:2;left:14px;top:14px;background:#f5f3f2f2;padding:11px 13px;border:1px solid #dedad5;border-radius:0;font-size:12px;color:#1b2b5b;font-weight:700;pointer-events:none}.bubble{padding:7px 10px;background:#1b2b5b;color:white;border-radius:0;border:1px solid #fff;white-space:nowrap;font-weight:700;font-size:12px}.map-tips{margin-top:23px;background:transparent;border-top:1px solid #dedad6;border-bottom:1px solid #dedad6;border-radius:0;padding:15px 0;font-size:12px;color:#666461;line-height:2}.map-tips b{color:#1b2b5b}.keybox{background:transparent;border:1px solid #dedad6;border-radius:0;padding:15px;margin-top:22px}.keybox summary{cursor:pointer;font-weight:700;font-size:13px;color:#1b2b5b}.keybox .label{margin-top:14px}code{background:#e7e5e2;border-radius:0;padding:2px 4px;font-size:11px;overflow-wrap:anywhere}a{color:#1b2b5b;text-decoration:underline;text-underline-offset:3px}footer{text-align:center;color:#83807c;font-size:11px;padding:15px 20px 32px;border-top:1px solid #e1dcd4}#mapInfo{margin-top:12px}
 @media(min-width:1100px){.panel:nth-child(2){padding-left:21px;border-left:1px solid #e1dcd4}}
 @media(max-width:860px){main{grid-template-columns:1fr;gap:33px}.map-box,#map{height:480px;min-height:480px}}
 @media(max-width:500px){header{padding:20px 16px;align-items:flex-start}header b{font-size:19px}header small{font-size:12px}.tag{font-size:10px;padding:7px}main{padding:21px 16px 28px;gap:29px}.panel>h2{font-size:18px}.map-box,#map{height:390px;min-height:390px}}
+
+/* v0.4 — beginner-friendly start, consistent with navy Hyundai-inspired styling */
+.hero{max-width:1230px;margin:0 auto;padding:44px 20px 22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.65fr);gap:48px;align-items:center}
+.hero-kicker{font-size:12px;color:#1b2b5b;font-weight:700;letter-spacing:.08em;margin-bottom:13px}
+.hero h1{font-size:clamp(26px,3.4vw,42px);line-height:1.3;letter-spacing:-1.5px;margin:0 0 15px;color:#111}
+.hero p{font-size:14px;color:#666;max-width:440px;line-height:1.85;margin:0 0 22px}
+.hero .hero-action{min-width:218px;padding:14px 26px;font-size:14px}
+.hero-art{padding:22px 28px;min-height:188px;position:relative;display:flex;align-items:center;justify-content:center;background:#eeece9;border:1px solid #e1dcd4}
+.hero-art svg{max-width:100%;width:310px}
+.hero-note{font-size:11px;color:#77716e;margin-top:12px}
+#origins{scroll-margin-top:24px}
+.empty-help{font-size:12px;line-height:1.7;color:#696766;margin-top:9px}
+@media(max-width:700px){.hero{grid-template-columns:1fr;gap:20px;padding:30px 16px 14px}.hero-art{min-height:140px}.hero-art svg{width:245px}header{padding-top:18px;padding-bottom:18px}}
 </style>
 </head>
 <body>
-<header><div><b>여기가 딱이긴 현대</b><div><small>각자 출발해도, 만날 곳은 공평하게</small></div></div><span class="tag">MAP PROTOTYPE · v0.3</span></header>
+<header><div><b>여기가 딱이긴 현대</b><div><small>각자 출발해도, 만날 곳은 공평하게</small></div></div><span class="tag">WEB PREVIEW · v0.4</span></header>
+<section class="hero" aria-labelledby="welcomeTitle">
+  <div>
+    <div class="hero-kicker">A BETTER PLACE TO MEET</div>
+    <h1 id="welcomeTitle">친구들과 어디서 만날까요?</h1>
+    <p>각자의 출발지를 등록하면 지도에서 한눈에 볼 수 있어요. 모두가 편한 만남의 시작, 여기서 정해보세요.</p>
+    <button class="primary hero-action" id="startBtn" type="button">출발지 등록하기</button>
+    <div class="hero-note">현재는 출발지 지도 시연 버전입니다. 장소 추천·투표는 개발 예정이에요.</div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 330 205" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44 42L286 54L160 179Z" stroke="#1B2B5B" stroke-width="2" stroke-dasharray="7 5"/>
+      <path d="M44 42L160 109L286 54M160 109V179" stroke="#9CA4B4" stroke-width="1.4" stroke-dasharray="4 6"/>
+      <circle cx="44" cy="42" r="14" fill="#1B2B5B"/><circle cx="286" cy="54" r="14" fill="#1B2B5B"/><circle cx="160" cy="179" r="14" fill="#1B2B5B"/>
+      <circle cx="160" cy="109" r="24" fill="#F5F3F2" stroke="#1B2B5B" stroke-width="2"/>
+      <path d="M150 109L157 116L171 101" stroke="#1B2B5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="44" y="47" fill="white" font-size="12" text-anchor="middle" font-weight="700">A</text>
+      <text x="286" y="59" fill="white" font-size="12" text-anchor="middle" font-weight="700">B</text>
+      <text x="160" y="184" fill="white" font-size="12" text-anchor="middle" font-weight="700">C</text>
+    </svg>
+  </div>
+</section>
 <main>
-<section class="panel">
-<h2>출발지 등록</h2><p class="muted">카카오맵에서 장소를 검색해 각자의 실제 출발 위치를 저장해 봐. 출발지는 이 브라우저 안에만 저장돼.</p>
+<section class="panel" id="origins">
+<h2>출발지 등록</h2><p class="muted">모임에 참여할 사람들의 출발지를 입력해 주세요. 입력한 장소는 이 브라우저에만 저장돼요.</p>
 <div id="participants"></div>
 <div class="label">새 참가자 추가</div>
 <div class="row"><input id="newName" maxlength="20" placeholder="예: 친구 D"><button id="add" class="primary" style="white-space:nowrap">+ 추가</button></div>
-<div id="status" class="status" role="status">지도 API 연결을 준비하고 있어.</div>
-<details class="keybox" id="settings"><summary>카카오맵 API 설정</summary>
-<p class="muted">카카오디벨로퍼스의 <b>JavaScript 키</b>를 입력해. REST API 키/어드민 키는 입력하면 안 돼. 브라우저 공개 키이므로 도메인 등록과 사용량 제한을 설정해 줘.</p>
-<div class="label">JavaScript 키</div><input id="apiKey" type="text" autocomplete="off" spellcheck="false" placeholder="JavaScript 키를 입력"><button id="connect" class="primary full" style="margin-top:8px">지도 연결하기</button>
-<p class="muted"><a href="https://developers.kakao.com/console/app" target="_blank" rel="noopener">카카오디벨로퍼스 앱 설정</a>에서 <b>플랫폼 키 → JavaScript 키 → JavaScript SDK 도메인</b>에 <code>https://affossoffa.github.io</code>를 등록해야 해. 등록한 앱의 카카오맵 사용 설정/권한도 확인해 줘.</p>
-<p class="muted">키는 파일이나 GitHub에 저장되지 않고 현재 브라우저에서만 사용돼. 새로고침하면 다시 연결해야 해.</p>
-</details>
+<div id="status" class="status" role="status">지도를 불러오는 중이에요.</div>
+
 <div class="map-tips"><b>이번 단계:</b> 실제 장소 검색 · 출발지 마커 · 다각형 표시<br><b>다음 단계:</b> 실제 자동차 이동 시간 계산 · 공평한 만남 장소 추천<br>실시간 투표 및 차량 내비게이션은 아직 미연동</div>
 </section>
 <section class="panel"><h2>우리 출발 위치</h2><p class="muted">검색 후 결과를 선택하면 지도에 마커가 표시돼. 마커를 누르면 출발지를 확인할 수 있어.</p>
-<div class="map-box"><div id="map" aria-label="참가자별 실제 출발 위치가 표시되는 지도"></div><div id="mapMessage" class="map-message">지도 API 키를 연결하면<br>여기에 실제 카카오 지도가 표시돼.</div><div class="map-top">참가자 출발지 &nbsp; / &nbsp; 출발지 연결 영역</div></div>
+<div class="map-box"><div id="map" aria-label="참가자별 실제 출발 위치가 표시되는 지도"></div><div id="mapMessage" class="map-message">지도를 불러오는 중이에요.</div><div class="map-top">참가자 출발지 &nbsp; / &nbsp; 출발지 연결 영역</div></div>
 <p class="muted" id="mapInfo">아직 실제 장소가 등록되지 않았어.</p>
 </section>
 </main><footer>공모전 프로젝트 프로토타입 · GPS 수집, 실제 자동차 이동 시간 및 온라인 모임 공유 기능은 아직 구현되지 않았습니다.</footer>
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
+// 개발자 설정: 카카오 JavaScript 키만 사용하세요 (REST/Admin 키는 절대 넣지 마세요).
+// 카카오디벨로퍼스에서 https://affossoffa.github.io 도메인을 허용해야 합니다.
+// 클라이언트 JavaScript 키는 브라우저에 공개되므로 도메인/쿼터 제한을 설정하세요.
+const KAKAO_JS_KEY = 'YOUR_KAKAO_JAVASCRIPT_KEY';
 const STORE='here-hyundai-origins-v02';
 let people=load(); let map=null,places=null,geocoder=null,markers=[],polygon=null,activeSearch=0;
 function load(){try{const v=JSON.parse(localStorage.getItem(STORE));if(Array.isArray(v)&&v.length&&v.every(p=>p&&typeof p.id==='number'&&typeof p.name==='string'))return v.slice(0,10)}catch(_){}return [{id:1,name:'나',place:null},{id:2,name:'친구 A',place:null},{id:3,name:'친구 B',place:null}];}
@@ -49,12 +82,40 @@ function msg(s,warn=false){$('status').textContent=s;$('status').className='stat
 function renderPeople(){const root=$('participants');root.innerHTML='';people.forEach(p=>{const card=document.createElement('div');card.className='person';card.innerHTML=`<div class="person-head"><div><b>${safe(p.name)}</b><small>${p.place?safe(p.place.name):'출발지 미설정'}</small></div><button class="secondary" data-del="${p.id}" aria-label="${safe(p.name)} 삭제">삭제</button></div><div class="row" style="margin-top:9px"><input aria-label="${safe(p.name)} 출발지 검색" data-search="${p.id}" placeholder="주소, 역, 건물 검색" value=""><button class="primary" data-go="${p.id}">검색</button></div><div class="results" id="result-${p.id}"></div>`;root.append(card);});root.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>removePerson(Number(b.dataset.del)));root.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>searchPerson(Number(b.dataset.go)));root.querySelectorAll('[data-search]').forEach(inp=>inp.onkeydown=e=>{if(e.key==='Enter')searchPerson(Number(inp.dataset.search))});}
 function removePerson(id){if(people.length<=1){msg('참가자는 최소 1명이 있어야 해.',true);return;}people=people.filter(p=>p.id!==id);persist();renderPeople();renderMap();}
 $('add').onclick=()=>{const name=$('newName').value.trim();if(!name){msg('참가자 이름을 입력해 줘.',true);return;}if(people.length>=10){msg('최대 10명까지 등록할 수 있어.',true);return;}people.push({id:Math.max(0,...people.map(p=>p.id))+1,name,place:null});$('newName').value='';persist();renderPeople();renderMap();};
-function searchPerson(id){const p=people.find(x=>x.id===id);if(!p)return;const query=document.querySelector(`[data-search="${id}"]`).value.trim();const box=$(`result-${id}`);if(!query){msg('검색할 장소나 주소를 입력해 줘.',true);return;}if(!places||!geocoder){msg('먼저 카카오 JavaScript 키로 지도를 연결해 줘.',true);$('settings').open=true;return;}const request=++activeSearch;box.textContent='검색 중...';places.keywordSearch(query,(list,status)=>{if(request!==activeSearch)return;if(status===kakao.maps.services.Status.OK&&list.length){showResults(id,list.map(x=>({name:x.place_name,address:x.road_address_name||x.address_name,lat:Number(x.y),lng:Number(x.x)})));return;}geocoder.addressSearch(query,(res,s)=>{if(request!==activeSearch)return;if(s===kakao.maps.services.Status.OK&&res.length)showResults(id,res.map(x=>({name:x.address_name,address:x.road_address?.address_name||x.address_name,lat:Number(x.y),lng:Number(x.x)})));else{box.textContent='검색 결과가 없어. 더 구체적인 주소나 건물명을 입력해 봐.';msg('검색 결과가 없어.',true);}});},{size:5});}
+function searchPerson(id){const p=people.find(x=>x.id===id);if(!p)return;const query=document.querySelector(`[data-search="${id}"]`).value.trim();const box=$(`result-${id}`);if(!query){msg('검색할 장소나 주소를 입력해 줘.',true);return;}if(!places||!geocoder){msg('현재 지도를 사용할 수 없어요. 잠시 후 다시 시도해 주세요.',true);return;}const request=++activeSearch;box.textContent='검색 중...';places.keywordSearch(query,(list,status)=>{if(request!==activeSearch)return;if(status===kakao.maps.services.Status.OK&&list.length){showResults(id,list.map(x=>({name:x.place_name,address:x.road_address_name||x.address_name,lat:Number(x.y),lng:Number(x.x)})));return;}geocoder.addressSearch(query,(res,s)=>{if(request!==activeSearch)return;if(s===kakao.maps.services.Status.OK&&res.length)showResults(id,res.map(x=>({name:x.address_name,address:x.road_address?.address_name||x.address_name,lat:Number(x.y),lng:Number(x.x)})));else{box.textContent='검색 결과가 없어. 더 구체적인 주소나 건물명을 입력해 봐.';msg('검색 결과가 없어.',true);}});},{size:5});}
 function showResults(id,results){const box=$(`result-${id}`);box.innerHTML='';results.slice(0,5).forEach(place=>{const b=document.createElement('button');b.type='button';b.className='search-result';const title=document.createElement('strong');title.textContent=place.name;const sub=document.createElement('small');sub.textContent=place.address;b.append(title,sub);b.onclick=()=>{const p=people.find(x=>x.id===id);if(!p)return;p.place=place;persist();renderPeople();renderMap();msg(`${p.name}의 출발지: ${place.name} 등록 완료`);};box.append(b);});}
 function renderMap(){if(!map)return;markers.forEach(m=>m.setMap(null));markers=[];if(polygon){polygon.setMap(null);polygon=null;}const active=people.filter(p=>p.place&&Number.isFinite(p.place.lat)&&Number.isFinite(p.place.lng));const bounds=new kakao.maps.LatLngBounds();active.forEach((p,i)=>{const pos=new kakao.maps.LatLng(p.place.lat,p.place.lng);bounds.extend(pos);const marker=new kakao.maps.Marker({position:pos,map,title:`${p.name}: ${p.place.name}`});const info=new kakao.maps.InfoWindow({content:`<div style="padding:8px 12px;white-space:nowrap;font-size:12px">${safe(p.name)} · ${safe(p.place.name)}</div>`});kakao.maps.event.addListener(marker,'click',()=>{markers.forEach(x=>x.info.close());info.open(map,marker);});markers.push({setMap:v=>{info.close();marker.setMap(v)},info});});
 if(active.length>=3){const points=active.map(p=>({lat:p.place.lat,lng:p.place.lng}));const sorted=convexHull(points);polygon=new kakao.maps.Polygon({map,path:sorted.map(p=>new kakao.maps.LatLng(p.lat,p.lng)),strokeWeight:3,strokeColor:'#1b2b5b',strokeOpacity:.9,strokeStyle:'shortdash',fillColor:'#1b2b5b',fillOpacity:.09});}
 if(active.length===1){map.setCenter(new kakao.maps.LatLng(active[0].place.lat,active[0].place.lng));map.setLevel(6);}else if(active.length>1){map.setBounds(bounds,80,50,50,50);} $('mapInfo').textContent=active.length?`실제 좌표 등록: ${active.length}명 / ${people.length}명 · 선으로 연결한 영역은 도로 주행시간 기준이 아니야.`:'아직 실제 장소가 등록되지 않았어. 왼쪽에서 출발지를 검색해 줘.';}
 function convexHull(points){const sorted=[...points].sort((a,b)=>a.lng-b.lng||a.lat-b.lat);if(sorted.length<=2)return sorted;const cross=(o,a,b)=>(a.lng-o.lng)*(b.lat-o.lat)-(a.lat-o.lat)*(b.lng-o.lng);const low=[];for(const p of sorted){while(low.length>=2&&cross(low[low.length-2],low[low.length-1],p)<=0)low.pop();low.push(p);}const up=[];for(const p of sorted.slice().reverse()){while(up.length>=2&&cross(up[up.length-2],up[up.length-1],p)<=0)up.pop();up.push(p);}low.pop();up.pop();return low.concat(up);}
-function connect(key){if(!key.trim()){msg('JavaScript 키를 입력해 줘.',true);return;}if(!/^[a-zA-Z0-9_-]+$/.test(key.trim())){msg('JavaScript 키 형식을 확인해 줘.',true);return;}if(window.kakao&&window.kakao.maps){msg('이미 지도 SDK가 연결됐어.');return;}msg('카카오맵 SDK 연결 중...');$('connect').disabled=true;const script=document.createElement('script');script.src=`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(key.trim())}&autoload=false&libraries=services`;script.onload=()=>{if(!window.kakao?.maps){fail('카카오 지도 SDK를 읽지 못했어. 키 및 도메인 등록을 확인해 줘.');return;}kakao.maps.load(()=>{try{map=new kakao.maps.Map($('map'),{center:new kakao.maps.LatLng(37.5665,126.978),level:10});places=new kakao.maps.services.Places();geocoder=new kakao.maps.services.Geocoder();$('mapMessage').hidden=true;$('connect').disabled=false;$('settings').open=false;msg('실제 지도 연결 완료! 출발지를 검색해 봐.');renderMap();}catch(e){fail('지도를 초기화하지 못했어. 카카오맵 사용 권한과 브라우저 콘솔을 확인해 줘.');}});};script.onerror=()=>fail('SDK 로딩 실패. JavaScript 키, SDK 도메인 또는 네트워크를 확인해 줘.');document.head.append(script);}
-function fail(s){$('connect').disabled=false;msg(s,true);} $('connect').onclick=() =>connect($('apiKey').value);renderPeople();$('settings').open=true;msg('JavaScript 키를 입력하면 실제 지도를 연결할 수 있어.');
+function connect(key){
+ if(!key || key==='YOUR_KAKAO_JAVASCRIPT_KEY'){
+   fail('아직 지도가 연결되지 않았어요.');
+   $('mapMessage').textContent='지도 준비 중이에요.\n잠시 후 다시 이용해 주세요.';
+   return;
+ }
+ if(!/^[a-zA-Z0-9_-]+$/.test(key)) {fail('지도를 불러오지 못했어요.');return;}
+ if(window.kakao?.maps) {initMap();return;}
+ msg('지도를 불러오는 중이에요.');
+ const script=document.createElement('script');
+ script.src=`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(key)}&autoload=false&libraries=services`;
+ script.onload=()=>{if(!window.kakao?.maps){fail('지도를 불러오지 못했어요.');return;}initMap();};
+ script.onerror=()=>fail('지도를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.');
+ document.head.append(script);
+}
+function initMap(){
+ kakao.maps.load(()=>{
+   try{
+     map=new kakao.maps.Map($('map'),{center:new kakao.maps.LatLng(37.5665,126.978),level:10});
+     places=new kakao.maps.services.Places();
+     geocoder=new kakao.maps.services.Geocoder();
+     $('mapMessage').hidden=true;
+     msg('지도가 준비됐어요. 출발지를 검색해 보세요.');
+     renderMap();
+   }catch(e){fail('지도를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.');}
+ });
+}
+function fail(s){msg(s,true);$('mapMessage').textContent=s+'\n(출발지 등록 기능은 지도가 연결되면 사용할 수 있어요.)';}
+$('startBtn').onclick=()=>{$('origins').scrollIntoView({behavior:'smooth',block:'start'});};
+renderPeople();connect(KAKAO_JS_KEY);
 </script></body></html>
