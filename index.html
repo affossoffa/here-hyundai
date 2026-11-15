@@ -6,16 +6,62 @@
 <title>여기가 딱이긴 현대 | 모임 장소 추천 데모</title>
 <style>
 :root{font-family:Arial,'Noto Sans KR','Malgun Gothic',sans-serif;color:#111;background:#f5f3f2;font-size:14px}*{box-sizing:border-box}body{margin:0}button,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}header{padding:22px max(22px,calc((100% - 1160px)/2));border-bottom:1px solid #dedad6;display:flex;justify-content:space-between;align-items:center;gap:14px}header strong{font-size:19px;letter-spacing:-.7px}header small{display:block;color:#666;margin-top:5px;font-size:11px}.chip{border:1px solid #1b2b5b;color:#1b2b5b;font-size:10px;letter-spacing:1px;padding:7px 9px;white-space:nowrap}main{max-width:1160px;margin:auto;padding:42px 22px 70px}.eyebrow{letter-spacing:1.5px;font-weight:700;font-size:11px;color:#1b2b5b}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center;border-bottom:1px solid #dcd8d3;padding-bottom:38px}h1{font-size:36px;line-height:1.3;letter-spacing:-1.7px;margin:16px 0}h2{font-size:22px;letter-spacing:-.7px;margin:5px 0 9px}h3{font-size:17px;margin:0;letter-spacing:-.4px}p{line-height:1.8;color:#626262;margin:8px 0 14px}.hero-art{background:#eeece9;border:1px solid #dedad6;min-height:215px;display:grid;place-items:center;padding:25px}.hero-art svg{width:100%;max-width:350px}section{margin-top:32px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.muted{font-size:12px;color:#737373}.notice{border-left:3px solid #1b2b5b;background:#efede9;padding:13px 16px;font-size:12px;color:#4e4e4e;line-height:1.8;margin:18px 0}.notice.error{border-left-color:#9c6c2e;background:#f3ede2}.members{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.member{background:#fff;border:1px solid #dedad6;padding:18px}.member .emoji{font-size:20px;margin-bottom:10px}.member strong{font-size:15px;display:block}.member span{display:block;color:#666;margin-top:7px;font-size:12px}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.toolbar label{font-size:12px;color:#666}select{background:white;border:1px solid #c7c4bf;padding:10px 12px;color:#111;min-width:145px}.places{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.place{border:1px solid #dedad6;background:white;padding:20px;display:flex;flex-direction:column;gap:15px;min-width:0}.place.top{border-top:4px solid #1b2b5b;padding-top:17px}.meta{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#666;font-size:11px}.rank{color:#1b2b5b;font-weight:700}.time{display:flex;justify-content:space-between;font-size:13px;border-bottom:1px solid #eeeae7;padding:8px 0}.time b{font-size:13px}.metrics{background:#f5f3f2;padding:12px;font-size:12px;color:#555;line-height:1.8}.actions{margin-top:auto;display:grid;gap:8px}.primary,.secondary{padding:13px 12px;min-height:43px;border:1px solid #1b2b5b;font-weight:700;text-align:center}.primary{background:#1b2b5b;color:#fff}.secondary{background:white;color:#1b2b5b}.vote-count{color:#666;font-size:12px;margin-top:0;text-align:center}.summary{background:#eeece9;border-top:1px solid #dedad6;padding:22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}.summary h3{margin-bottom:6px}.summary p{margin:0}.subtle{color:#666;font-size:11px;line-height:1.7}.foot{margin-top:42px;border-top:1px solid #dedad6;padding:18px 0;font-size:11px;color:#777;line-height:1.9}a{color:#1b2b5b}button:focus-visible,select:focus-visible{outline:3px solid #8294d3;outline-offset:2px}@media(max-width:850px){.hero{grid-template-columns:1fr}.places{grid-template-columns:1fr}.hero-art{min-height:155px}.members{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:480px){main{padding:28px 16px 50px}header{padding:18px 16px}h1{font-size:29px}.member{padding:12px}.summary{grid-template-columns:1fr}.chip{font-size:9px}}
+
+/* v0.8: 별도 API 없이 동작하는 시연용 지도 */
+.map-panel{border:1px solid #dedad6;background:#f0efec;position:relative;overflow:hidden}
+.demo-map{width:100%;height:auto;display:block;aspect-ratio:1000/490}
+.map-street{fill:none;stroke:#fff;stroke-width:12;stroke-linecap:round;stroke-linejoin:round}
+.map-street.thin{stroke-width:6}
+.map-street.major{stroke:#d4d1cc;stroke-width:19}
+.map-street.major-inner{stroke:#fff;stroke-width:13}
+.map-label{font-size:18px;font-weight:700;fill:#94918d;letter-spacing:1.5px}
+.map-road-label{font-size:12px;fill:#aaa5a0;letter-spacing:.5px}
+.map-water{fill:#dce7e9}
+.map-park{fill:#e3e9de}
+.map-boundary{fill:none;stroke:#1b2b5b;stroke-width:2.5;stroke-dasharray:7 8;opacity:.6}
+.map-pin-start circle{fill:#1b2b5b;stroke:#fff;stroke-width:4}
+.map-pin-start text{fill:#fff;font-size:16px;font-weight:700;text-anchor:middle;dominant-baseline:central}
+.map-pin-place{cursor:pointer;outline:none}
+.map-pin-place .pin-bubble{fill:#fff;stroke:#1b2b5b;stroke-width:3}
+.map-pin-place .pin-number{fill:#1b2b5b;font-size:17px;font-weight:700;text-anchor:middle;dominant-baseline:central}
+.map-pin-place.selected .pin-bubble{fill:#1b2b5b}
+.map-pin-place.selected .pin-number{fill:#fff}
+.map-pin-place:focus-visible .pin-bubble{stroke:#3e71bd;stroke-width:6}
+.map-pin-label{font-size:16px;font-weight:700;fill:#1b2b5b;paint-order:stroke;stroke:#f0efec;stroke-width:5px;stroke-linejoin:round}
+.map-panel-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 17px;border-top:1px solid #dedad6;flex-wrap:wrap;background:#f5f3f2}
+.map-key{display:flex;align-items:center;gap:18px;font-size:12px;color:#666;flex-wrap:wrap}
+.map-key span{display:inline-flex;align-items:center;gap:6px}
+.key-dot{width:12px;height:12px;border-radius:50%;background:#1b2b5b;display:inline-block}
+.key-dot.place{background:#fff;border:2px solid #1b2b5b}
+.map-note{color:#666;font-size:11px}
+@media(max-width:650px){.demo-map{min-height:260px;aspect-ratio:1000/610}.map-panel-footer{align-items:flex-start}.map-key{gap:11px}.map-note{font-size:10px}}
 </style>
 </head>
 <body>
-<header><div><strong>여기가 딱이긴 현대</strong><small>각자 출발해도, 만날 곳은 공평하게</small></div><span class="chip">WEB DEMO · v0.7</span></header>
+<header><div><strong>여기가 딱이긴 현대</strong><small>각자 출발해도, 만날 곳은 공평하게</small></div><span class="chip">WEB DEMO · v0.8</span></header>
 <main>
 <section class="hero" style="margin-top:0"><div><div class="eyebrow">A BETTER PLACE TO MEET</div><h1>친구들과 어디서<br/>만날까요?</h1><p>서로 다른 곳에서 출발하는 친구들의 이동 시간을 한눈에 비교하고, 모두에게 편리한 장소를 함께 골라보세요.</p><button class="primary" id="startBtn" type="button">추천 장소 살펴보기</button><p class="subtle">현재는 시연용 가상 주행 시간으로 추천 과정을 보여줍니다.</p></div><div class="hero-art" aria-label="세 명의 출발지와 가운데 만남 장소를 연결한 그림"><svg viewBox="0 0 330 200" role="img" aria-hidden="true"><path d="M45 37 289 51 168 172Z" fill="none" stroke="#1b2b5b" stroke-width="2" stroke-dasharray="6 5"/><path d="M45 37 166 96 289 51M168 172 166 96" fill="none" stroke="#9ca3b8" stroke-width="1.2" stroke-dasharray="3 5"/><circle cx="45" cy="37" r="16" fill="#1b2b5b"/><circle cx="289" cy="51" r="16" fill="#1b2b5b"/><circle cx="168" cy="172" r="16" fill="#1b2b5b"/><g fill="white" font-size="13" font-family="Arial" text-anchor="middle"><text x="45" y="42">A</text><text x="289" y="56">B</text><text x="168" y="177">C</text></g><circle cx="166" cy="96" r="23" fill="#f5f3f2" stroke="#1b2b5b" stroke-width="2"/><path d="m156 96 7 7 15-17" fill="none" stroke="#1b2b5b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div></section>
 <section><div class="section-head"><div><div class="eyebrow">OUR GROUP</div><h2>이번 모임의 출발지</h2><p class="muted">김포 · 인천 · 수원에서 출발하는 3명의 시연용 모임</p></div><span class="chip">3 MEMBERS</span></div><div class="members" id="members"></div></section>
+<section id="demoMapSection"><div class="section-head"><div><div class="eyebrow">MEETING MAP</div><h2>한눈에 보는 우리 모임</h2><p class="muted">세 출발지와 추천 장소를 함께 확인해 보세요. 장소 마커를 누르면 선택할 수 있어요.</p></div><span class="chip">DEMO MAP</span></div>
+<div class="map-panel"><svg id="demoMap" class="demo-map" viewBox="0 0 1000 490" role="img" aria-label="김포, 인천, 수원 출발지와 후보 장소가 표시된 시연용 개념 지도" xmlns="http://www.w3.org/2000/svg">
+<rect width="1000" height="490" fill="#f0efec"/>
+<!-- 실제 도로가 아닌 개념적인 길 모양 -->
+<path class="map-water" d="M0 215C96 200 151 266 203 244S322 161 385 184S481 255 531 219L544 271C465 312 407 252 361 241S245 307 177 307S74 272 0 284Z"/>
+<path class="map-park" d="M654 34l206 6 51 93-80 83-150-20-67-95zM85 334l173 12 25 108-188 24-52-90zM728 315l155-14 69 110-116 68-134-56z"/>
+<path class="map-street major" d="M-30 97L211 115 409 101 662 142 1030 115M32 480L184 300 357 248 545 180 802 45M332-10L373 164 516 341 648 501"/>
+<path class="map-street major-inner" d="M-30 97L211 115 409 101 662 142 1030 115M32 480L184 300 357 248 545 180 802 45M332-10L373 164 516 341 648 501"/>
+<path class="map-street" d="M-30 344L131 305 326 359 480 399 699 376 1030 330M109-10L133 137 163 285 218 505M562-30L588 112 722 241 987 270M799-10L775 144 838 286 818 520"/>
+<path class="map-street thin" d="M-10 173L201 195 403 149 578 262 1030 220M-10 413L219 407 396 461 683 438 1010 468M235-20L259 150 298 297 341 520M470-15L459 111 438 281 494 505M943-20L927 176 966 342 947 505"/>
+<text class="map-label" x="120" y="57">김포</text><text class="map-label" x="107" y="379">인천</text><text class="map-label" x="824" y="439">수원</text>
+<text class="map-label" x="457" y="82">서울 서부</text><text class="map-label" x="654" y="279">경기 남부</text>
+<text class="map-road-label" x="370" y="93">주요 도로</text><text class="map-road-label" x="230" y="268">하천 · 수변</text>
+<path class="map-boundary" d="M174 115L154 356L829 418Z"/>
+<g id="mapStartMarkers"></g><g id="mapPlaceMarkers"></g>
+</svg>
+<div class="map-panel-footer"><div class="map-key"><span><i class="key-dot"></i> 출발지</span><span><i class="key-dot place"></i> 후보 장소 (클릭 가능)</span></div><span class="map-note">시연용 개념 지도 · 실제 지도·도로·좌표 아님</span></div></div></section>
 <section id="recommendations"><div class="section-head"><div><div class="eyebrow">RECOMMENDATION</div><h2>모두에게 딱 맞는 장소</h2><p class="muted">저장된 후보들의 가상 이동 시간을 기준으로 추천 순위를 계산합니다.</p></div><div class="toolbar"><label for="sort">추천 방식</label><select id="sort"><option value="fair">공평한 만남</option><option value="fast">빠른 만남</option><option value="gap">시간 차이 최소</option></select></div></div><div id="dbStatus" class="notice" role="status">모임 정보를 불러오는 중이에요.</div><div class="places" id="places"></div></section>
 <section><div class="section-head"><div><div class="eyebrow">YOUR CHOICE</div><h2>우리의 만남 장소</h2></div></div><div class="summary"><div><h3 id="chosenTitle">아직 선택한 장소가 없어요.</h3><p id="chosenText">마음에 드는 장소를 선택하면 이곳에서 확인할 수 있어요.</p><p class="subtle">장소 선택은 이 브라우저에서만 저장됩니다. 실제 친구 간 실시간 투표는 이후 구현할 예정입니다.</p></div><button type="button" class="secondary" id="navBtn" disabled>차량 내비게이션 연동 예정</button></div></section>
-<footer class="foot">이 버전은 공개 시연용 웹 프로토타입입니다. 실제 자동차 이동 시간·장소 좌표를 검증하지 않았고, Pleos Connect / NaviHelper SDK 연결 및 실시간 투표는 구현되지 않았습니다. 카카오맵과 Google 지도 연결은 사용하지 않습니다.</footer>
+<footer class="foot">이 버전은 공개 시연용 웹 프로토타입입니다. 지도는 실제 지리 데이터를 사용하지 않은 개념도입니다. 실제 자동차 이동 시간·장소 좌표를 검증하지 않았고, Pleos Connect / NaviHelper SDK 연결 및 실시간 투표는 구현되지 않았습니다. 카카오맵과 Google 지도 연결은 사용하지 않습니다.</footer>
 </main>
 <script>
 'use strict';
@@ -33,6 +79,16 @@ const FALLBACK_PLACES=[
 ];
 let members=FALLBACK_MEMBERS,places=FALLBACK_PLACES,choiceId=null;
 const $=id=>document.getElementById(id);
+const SVG_NS='http://www.w3.org/2000/svg';
+const svgEl=(name,attrs)=>{const e=document.createElementNS(SVG_NS,name);Object.entries(attrs||{}).forEach(([k,v])=>e.setAttribute(k,v));return e};
+const DEMO_START_POINTS=[{x:174,y:115},{x:154,y:356},{x:829,y:418}];
+const DEMO_PLACE_POINTS=[{x:405,y:245},{x:548,y:295},{x:667,y:342},{x:550,y:205},{x:735,y:215}];
+function renderDemoMap(){
+ const starts=$('mapStartMarkers'),pins=$('mapPlaceMarkers');starts.replaceChildren();pins.replaceChildren();
+ members.forEach((m,i)=>{const pt=DEMO_START_POINTS[i%DEMO_START_POINTS.length];const g=svgEl('g',{'class':'map-pin-start'});g.append(svgEl('circle',{cx:pt.x,cy:pt.y,r:19}));const t=svgEl('text',{x:pt.x,y:pt.y+1});t.textContent=String.fromCharCode(65+i);g.append(t);const title=svgEl('title');title.textContent=m.name+' · '+m.start_location+' 출발';g.append(title);starts.append(g)});
+ places.forEach((p,i)=>{const pt=DEMO_PLACE_POINTS[i%DEMO_PLACE_POINTS.length];const selected=choiceId===p.id;const g=svgEl('g',{'class':'map-pin-place'+(selected?' selected':''),tabindex:'0',role:'button','aria-label':p.name+' 선택'});g.append(svgEl('circle',{'class':'pin-bubble',cx:pt.x,cy:pt.y,r:20}));const no=svgEl('text',{'class':'pin-number',x:pt.x,y:pt.y+1});no.textContent=String(i+1);g.append(no);const label=svgEl('text',{'class':'map-pin-label',x:pt.x+26,y:pt.y-14});label.textContent=p.name;g.append(label);const title=svgEl('title');title.textContent=p.name+' · 클릭하여 선택';g.append(title);const choose=()=>{choiceId=p.id;try{localStorage.setItem('hyundai-demo-place',p.id)}catch(_){};render();};g.addEventListener('click',choose);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}});pins.append(g)});
+}
+
 const node=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=String(text);return e};
 const keyReady=SUPABASE_PUBLISHABLE_KEY.startsWith('sb_publishable_')||SUPABASE_PUBLISHABLE_KEY.length>35&&!SUPABASE_PUBLISHABLE_KEY.includes('YOUR_');
 function score(place){const times=members.map(m=>Number(place.travel_times?.[m.name]));const valid=times.every(x=>Number.isFinite(x)&&x>=0);if(!valid)return {valid:false,times,maximum:Infinity,sum:Infinity,gap:Infinity};const maximum=Math.max(...times),minimum=Math.min(...times),sum=times.reduce((a,b)=>a+b,0);return {valid,times,maximum,sum,gap:maximum-minimum}}
@@ -41,6 +97,7 @@ function render(){const mem=$('members');mem.replaceChildren();members.forEach((
  const list=$('places');list.replaceChildren();sorted.forEach((v,i)=>{const p=v.place,card=node('article','place'+(i===0?' top':''));const meta=node('div','meta');meta.append(node('span','',p.category||'장소'),node('span','rank',i===0?'추천 1순위':'후보 '+(i+1)));card.append(meta,node('h3','',p.name));members.forEach((m,j)=>{const row=node('div','time');row.append(node('span','',m.name+' · '+m.start_location),node('b','',Number.isFinite(v.times[j])?v.times[j]+'분':'정보 없음'));card.append(row)});
  const avg=v.valid?(v.sum/members.length).toFixed(1):'-';card.append(node('div','metrics',v.valid?`최장 이동 ${v.maximum}분 · 평균 ${avg}분 · 이동 시간 차이 ${v.gap}분`:'이동 시간 정보가 부족합니다.'));
  const actions=node('div','actions'),select=node('button',choiceId===p.id?'primary':'secondary',choiceId===p.id?'✓ 선택한 장소':'이 장소 선택하기');select.type='button';select.onclick=()=>{choiceId=p.id;try{localStorage.setItem('hyundai-demo-place',p.id)}catch(_){};render()};actions.append(select);card.append(actions);list.append(card)});
+ renderDemoMap();
  const selected=places.find(p=>p.id===choiceId);$('chosenTitle').textContent=selected?selected.name:'아직 선택한 장소가 없어요.';$('chosenText').textContent=selected?'선택한 장소입니다. 차량 연동은 Pleos Connect용 Android 앱 개발 후 사용할 수 있습니다.':'마음에 드는 장소를 선택하면 이곳에서 확인할 수 있어요.';
 }
 async function readTable(table,fields){const url=new URL(SUPABASE_URL+'/rest/v1/'+table);url.searchParams.set('select',fields);url.searchParams.set('room_id','eq.'+DEMO_ROOM_ID);const resp=await fetch(url.toString(),{headers:{apikey:SUPABASE_PUBLISHABLE_KEY,Accept:'application/json'},cache:'no-store'});if(!resp.ok)throw new Error('HTTP '+resp.status);return resp.json()}
