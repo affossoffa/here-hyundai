@@ -60,13 +60,36 @@
 .place-detail>.primary,.place-detail>.secondary{width:100%;margin-top:2px}
 @media(max-width:950px){.meeting-layout{grid-template-columns:minmax(0,1fr)}.meeting-layout .demo-map{min-height:300px;max-height:480px;aspect-ratio:1000/490}.place-detail{padding:20px}.detail-metrics{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.meeting-layout .demo-map{min-height:265px;max-height:360px}.detail-title{font-size:21px}}
+
+/* v1.0 — reference composition: map-first layout, 70:30 split */
+main{max-width:1440px;padding:20px 32px 60px}
+header{padding:13px max(32px,calc((100% - 1376px)/2));background:#f5f3f2}
+header strong{font-size:17px}
+header small{font-size:10px}
+#demoMapSection{margin-top:0}
+#demoMapSection .section-head{margin-bottom:24px;align-items:center}
+#demoMapSection h2{font-size:25px;margin:6px 0 7px}
+#demoMapSection .muted{margin:0;font-size:12px}
+.meeting-layout{grid-template-columns:minmax(0,7fr) minmax(0,3fr);gap:15px;align-items:stretch}
+.meeting-layout .demo-map{height:100%;width:100%;min-height:0;max-height:none;aspect-ratio:auto}
+.meeting-layout .map-panel{min-height:500px}
+.meeting-layout .map-panel-footer{min-height:47px;padding:9px 13px;flex-shrink:0}
+.place-detail{padding:20px 17px;gap:8px;justify-content:flex-start}
+.detail-title{font-size:19px;margin:7px 0 3px}
+.detail-category{margin-bottom:11px}
+.detail-time-row{padding:10px 0}
+.detail-times{margin-top:10px}
+.detail-metrics{margin-top:12px}
+.place-detail>.primary{margin-top:8px}
+#recommendations,#demoMapSection ~ section{margin-top:34px}
+@media(min-width:951px){.meeting-layout{height:min(610px,calc(100vh - 185px));min-height:440px}.meeting-layout .map-panel{min-height:0}}
+@media(max-width:950px){main{padding:20px 20px 50px}.meeting-layout{grid-template-columns:1fr}.meeting-layout .map-panel{min-height:0}.meeting-layout .demo-map{height:auto;min-height:310px;max-height:500px;aspect-ratio:1000/490}.place-detail{padding:20px}}
+@media(max-width:500px){main{padding:18px 14px 50px}header{padding:13px 14px}#demoMapSection h2{font-size:23px}#demoMapSection .section-head{margin-bottom:16px}.meeting-layout .demo-map{min-height:245px}.map-panel-footer{gap:7px}}
 </style>
 </head>
 <body>
-<header><div><strong>여기가 딱이긴 현대</strong><small>각자 출발해도, 만날 곳은 공평하게</small></div><span class="chip">WEB DEMO · v0.9</span></header>
+<header><div><strong>여기가 딱이긴 현대</strong><small>각자 출발해도, 만날 곳은 공평하게</small></div><span class="chip">WEB DEMO · v1.0</span></header>
 <main>
-<section class="hero" style="margin-top:0"><div><div class="eyebrow">A BETTER PLACE TO MEET</div><h1>친구들과 어디서<br/>만날까요?</h1><p>서로 다른 곳에서 출발하는 친구들의 이동 시간을 한눈에 비교하고, 모두에게 편리한 장소를 함께 골라보세요.</p><button class="primary" id="startBtn" type="button">추천 장소 살펴보기</button><p class="subtle">현재는 시연용 가상 주행 시간으로 추천 과정을 보여줍니다.</p></div><div class="hero-art" aria-label="세 명의 출발지와 가운데 만남 장소를 연결한 그림"><svg viewBox="0 0 330 200" role="img" aria-hidden="true"><path d="M45 37 289 51 168 172Z" fill="none" stroke="#1b2b5b" stroke-width="2" stroke-dasharray="6 5"/><path d="M45 37 166 96 289 51M168 172 166 96" fill="none" stroke="#9ca3b8" stroke-width="1.2" stroke-dasharray="3 5"/><circle cx="45" cy="37" r="16" fill="#1b2b5b"/><circle cx="289" cy="51" r="16" fill="#1b2b5b"/><circle cx="168" cy="172" r="16" fill="#1b2b5b"/><g fill="white" font-size="13" font-family="Arial" text-anchor="middle"><text x="45" y="42">A</text><text x="289" y="56">B</text><text x="168" y="177">C</text></g><circle cx="166" cy="96" r="23" fill="#f5f3f2" stroke="#1b2b5b" stroke-width="2"/><path d="m156 96 7 7 15-17" fill="none" stroke="#1b2b5b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div></section>
-<section><div class="section-head"><div><div class="eyebrow">OUR GROUP</div><h2>이번 모임의 출발지</h2><p class="muted">김포 · 인천 · 수원에서 출발하는 3명의 시연용 모임</p></div><span class="chip">3 MEMBERS</span></div><div class="members" id="members"></div></section>
 <section id="demoMapSection"><div class="section-head"><div><div class="eyebrow">MEETING MAP</div><h2>한눈에 보는 우리 모임</h2><p class="muted">세 출발지와 추천 장소를 함께 확인해 보세요. 장소 마커를 누르면 오른쪽에 이동 시간과 세부정보가 나타나요.</p></div><span class="chip">DEMO MAP</span></div>
 <div class="meeting-layout"><div class="map-panel"><svg id="demoMap" class="demo-map" viewBox="0 0 1000 490" role="img" aria-label="김포, 인천, 수원 출발지와 후보 장소가 표시된 시연용 개념 지도" xmlns="http://www.w3.org/2000/svg">
 <rect width="1000" height="490" fill="#f0efec"/>
@@ -84,8 +107,11 @@
 <g id="mapStartMarkers"></g><g id="mapPlaceMarkers"></g>
 </svg>
 <div class="map-panel-footer"><div class="map-key"><span><i class="key-dot"></i> 출발지</span><span><i class="key-dot place"></i> 후보 장소 (클릭 가능)</span></div><span class="map-note">시연용 개념 지도 · 실제 지도·도로·좌표 아님</span></div></div><aside class="place-detail" id="placeDetail" aria-label="선택한 장소 상세정보" aria-live="polite"><p class="muted">장소 정보를 준비하고 있어요.</p></aside></div></section>
+
 <section id="recommendations"><div class="section-head"><div><div class="eyebrow">RECOMMENDATION</div><h2>모두에게 딱 맞는 장소</h2><p class="muted">저장된 후보들의 가상 이동 시간을 기준으로 추천 순위를 계산합니다.</p></div><div class="toolbar"><label for="sort">추천 방식</label><select id="sort"><option value="fair">공평한 만남</option><option value="fast">빠른 만남</option><option value="gap">시간 차이 최소</option></select></div></div><div id="dbStatus" class="notice" role="status">모임 정보를 불러오는 중이에요.</div><div class="places" id="places"></div></section>
 <section><div class="section-head"><div><div class="eyebrow">YOUR CHOICE</div><h2>우리의 만남 장소</h2></div></div><div class="summary"><div><h3 id="chosenTitle">아직 선택한 장소가 없어요.</h3><p id="chosenText">마음에 드는 장소를 선택하면 이곳에서 확인할 수 있어요.</p><p class="subtle">장소 선택은 이 브라우저에서만 저장됩니다. 실제 친구 간 실시간 투표는 이후 구현할 예정입니다.</p></div><button type="button" class="secondary" id="navBtn" disabled>차량 내비게이션 연동 예정</button></div></section>
+
+<section><div class="section-head"><div><div class="eyebrow">OUR GROUP</div><h2>이번 모임의 출발지</h2><p class="muted">김포 · 인천 · 수원에서 출발하는 3명의 시연용 모임</p></div><span class="chip">3 MEMBERS</span></div><div class="members" id="members"></div></section>
 <footer class="foot">이 버전은 공개 시연용 웹 프로토타입입니다. 지도는 실제 지리 데이터를 사용하지 않은 개념도입니다. 실제 자동차 이동 시간·장소 좌표를 검증하지 않았고, Pleos Connect / NaviHelper SDK 연결 및 실시간 투표는 구현되지 않았습니다. 카카오맵과 Google 지도 연결은 사용하지 않습니다.</footer>
 </main>
 <script>
@@ -152,7 +178,7 @@ function renderPlaceDetail(){
 async function readTable(table,fields){const url=new URL(SUPABASE_URL+'/rest/v1/'+table);url.searchParams.set('select',fields);url.searchParams.set('room_id','eq.'+DEMO_ROOM_ID);const resp=await fetch(url.toString(),{headers:{apikey:SUPABASE_PUBLISHABLE_KEY,Accept:'application/json'},cache:'no-store'});if(!resp.ok)throw new Error('HTTP '+resp.status);return resp.json()}
 async function setup(){try{choiceId=localStorage.getItem('hyundai-demo-place')}catch(_){};render();if(!keyReady){$('dbStatus').textContent='시연용 내장 목데이터를 표시하고 있어요. Supabase 연결은 개발자가 Publishable key를 설정하면 활성화됩니다.';return}
  try{const [m,p]=await Promise.all([readTable('members','id,name,start_location'),readTable('places','id,name,category,travel_times,is_mock')]);if(!m.length||!p.length)throw new Error('저장된 데모 정보가 비어 있어요.');members=m;places=p;$('dbStatus').textContent='Supabase 연결 완료 · 참가자 '+m.length+'명 · 후보 장소 '+p.length+'곳 · 이동 시간은 목데이터입니다.';render()}catch(e){$('dbStatus').classList.add('error');$('dbStatus').textContent='Supabase 연결 실패 ('+e.message+'). 지금은 내장 목데이터로 시연 중입니다. 실제 DB 연결은 URL, Publishable key 및 RLS 설정을 확인해 주세요.'}}
-$('sort').addEventListener('change',render);$('startBtn').addEventListener('click',()=>$('recommendations').scrollIntoView({behavior:'smooth'}));$('navBtn').addEventListener('click',()=>{});setup();
+$('sort').addEventListener('change',render);$('navBtn').addEventListener('click',()=>{});setup();
 </script>
 </body>
 </html>
