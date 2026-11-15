@@ -1,305 +1,52 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>여기가 딱이긴 현대 | 모두가 편한 만남</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>여기가 딱이긴 현대 | 모임 장소 추천 데모</title>
 <style>
-:root{font-family:Arial,'Noto Sans KR','Malgun Gothic',sans-serif;color:#121212;background:#f5f3f2;font-size:14px;-webkit-font-smoothing:antialiased}
-*{box-sizing:border-box}body{margin:0;background:#f5f3f2}button,input{font:inherit}button{cursor:pointer;border:1px solid #d9d6d3;border-radius:0;padding:11px 14px;background:#fff;color:#1b2b5b;font-size:13px;font-weight:700;min-height:42px;transition:background .15s ease}button:hover{background:#ebebee}button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid #1b2b5b;outline-offset:2px}button:disabled{opacity:.5;cursor:not-allowed}input{border:1px solid #d8d5d1;border-radius:0;padding:11px 12px;width:100%;min-width:0;background:#fff;color:#111;font-size:13px;min-height:42px}input::placeholder{color:#92908d}
-header{background:#f5f3f2;border-bottom:1px solid #e1dcd4;padding:26px max(24px,calc((100vw - 1230px)/2));display:flex;align-items:flex-end;justify-content:space-between;gap:16px}header b{font-size:23px;letter-spacing:-.7px;font-weight:700;color:#111}header small{font-size:13px;color:#686665;display:block;margin-top:11px}.tag{color:#1b2b5b;border:1px solid #d8d5d1;padding:7px 10px;font-size:11px;font-weight:700;white-space:nowrap;letter-spacing:.3px}
-main{max-width:1270px;padding:26px 20px 40px;margin:auto;display:grid;grid-template-columns:365px minmax(0,1fr);gap:24px;align-items:start}.panel{background:transparent;border:none;border-radius:0;padding:0;box-shadow:none}.panel>h2{font-size:19px;font-weight:700;margin:2px 0 10px;letter-spacing:-.5px}h2{font-size:19px;margin:0 0 10px}p{line-height:1.7;margin:8px 0 15px}.muted{font-size:12px;color:#696766;line-height:1.75}.label{font-size:13px;font-weight:700;margin:22px 0 9px;color:#171717}.primary{background:#1b2b5b;border-color:#1b2b5b;color:#fff}.primary:hover{background:#263e7b;border-color:#263e7b}.secondary{background:transparent;color:#1b2b5b;border:1px solid #d7d3cf}.full{width:100%}.row{display:flex;gap:8px;align-items:center}.status{font-size:12px;background:#e9ebf0;border-left:3px solid #1b2b5b;padding:11px 12px;margin-top:15px;line-height:1.6;color:#243453}.warning{background:#f5eee3;border-left-color:#a37637;color:#6c4e27}
-.person{background:transparent;border:none;border-bottom:1px solid #dedad6;border-radius:0;padding:17px 0 18px;margin:0}.person:first-child{border-top:1px solid #dedad6}.person-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.person-head b{font-size:14px;color:#121212}.person small{display:block;margin-top:6px;color:#77716e;font-size:12px;line-height:1.4}.person .buttons{display:flex;gap:6px;margin-top:8px}.person button{font-size:12px;padding:7px 10px;min-height:36px}.person button.primary{min-height:42px;padding:9px 15px}.person .row{margin-top:12px!important}.search-result{display:block;font-size:12px;border:1px solid #dedad5;border-radius:0;padding:11px 12px;margin-top:5px;cursor:pointer;background:#fff;text-align:left;width:100%;font-weight:400;color:#161616}.search-result:hover{background:#e9ebf0}.search-result strong{font-size:13px}.search-result small{display:block;color:#77716e;margin-top:5px}
-.map-box{position:relative;min-height:570px;border-radius:0;overflow:hidden;background:#e9e9e8;border:1px solid #dedad5}#map{height:570px;width:100%}.map-message{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;color:#77716e;background:repeating-linear-gradient(0deg,#efedeb,#efedeb 39px,#e9e7e5 40px);font-size:14px;line-height:1.9}.map-message{white-space:pre-line}.map-message[hidden]{display:none}.map-top{position:absolute;z-index:2;left:14px;top:14px;background:#f5f3f2f2;padding:11px 13px;border:1px solid #dedad5;border-radius:0;font-size:12px;color:#1b2b5b;font-weight:700;pointer-events:none}.bubble{padding:7px 10px;background:#1b2b5b;color:white;border-radius:0;border:1px solid #fff;white-space:nowrap;font-weight:700;font-size:12px}.map-tips{margin-top:23px;background:transparent;border-top:1px solid #dedad6;border-bottom:1px solid #dedad6;border-radius:0;padding:15px 0;font-size:12px;color:#666461;line-height:2}.map-tips b{color:#1b2b5b}.keybox{background:transparent;border:1px solid #dedad6;border-radius:0;padding:15px;margin-top:22px}.keybox summary{cursor:pointer;font-weight:700;font-size:13px;color:#1b2b5b}.keybox .label{margin-top:14px}code{background:#e7e5e2;border-radius:0;padding:2px 4px;font-size:11px;overflow-wrap:anywhere}a{color:#1b2b5b;text-decoration:underline;text-underline-offset:3px}footer{text-align:center;color:#83807c;font-size:11px;padding:15px 20px 32px;border-top:1px solid #e1dcd4}#mapInfo{margin-top:12px}
-@media(min-width:1100px){.panel:nth-child(2){padding-left:21px;border-left:1px solid #e1dcd4}}
-@media(max-width:860px){main{grid-template-columns:1fr;gap:33px}.map-box,#map{height:480px;min-height:480px}}
-@media(max-width:500px){header{padding:20px 16px;align-items:flex-start}header b{font-size:19px}header small{font-size:12px}.tag{font-size:10px;padding:7px}main{padding:21px 16px 28px;gap:29px}.panel>h2{font-size:18px}.map-box,#map{height:390px;min-height:390px}}
-
-/* v0.5 — beginner-friendly start, destination selection and navigation handoff */
-.hero{max-width:1230px;margin:0 auto;padding:44px 20px 22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.65fr);gap:48px;align-items:center}
-.hero-kicker{font-size:12px;color:#1b2b5b;font-weight:700;letter-spacing:.08em;margin-bottom:13px}
-.hero h1{font-size:clamp(26px,3.4vw,42px);line-height:1.3;letter-spacing:-1.5px;margin:0 0 15px;color:#111}
-.hero p{font-size:14px;color:#666;max-width:440px;line-height:1.85;margin:0 0 22px}
-.hero .hero-action{min-width:218px;padding:14px 26px;font-size:14px}
-.hero-art{padding:22px 28px;min-height:188px;position:relative;display:flex;align-items:center;justify-content:center;background:#eeece9;border:1px solid #e1dcd4}
-.hero-art svg{max-width:100%;width:310px}
-.hero-note{font-size:11px;color:#77716e;margin-top:12px}
-#origins{scroll-margin-top:24px}
-.empty-help{font-size:12px;line-height:1.7;color:#696766;margin-top:9px}
-@media(max-width:700px){.hero{grid-template-columns:1fr;gap:20px;padding:30px 16px 14px}.hero-art{min-height:140px}.hero-art svg{width:245px}header{padding-top:18px;padding-bottom:18px}}
-/* Destination search: same flat navy visual system */
-.destination-panel{border-top:1px solid #dedad6;margin-top:30px;padding-top:27px}
-.destination-panel h2{font-size:19px;font-weight:700;margin-bottom:10px}
-.destination-panel .label{display:block;margin-top:15px}
-#destinationResults{margin-top:10px}
-.selected-destination{border:1px solid #d8d5d1;padding:17px 16px;margin-top:17px;background:#fff}
-.selected-destination[hidden]{display:none}
-.destination-kicker{display:block;text-transform:uppercase;color:#1b2b5b;font-size:11px;font-weight:700;letter-spacing:.04em;margin-bottom:7px}
-.selected-destination strong{display:block;color:#111;font-size:17px;margin-bottom:7px}
-.selected-destination small{display:block;color:#77716e;font-size:12px;line-height:1.5;margin-bottom:16px}
-.selected-destination .nav-action{font-size:14px}
-.nav-note{margin:11px 0 0!important;font-size:11px!important}
-/* v0.6 Supabase demonstration */
-.demo-section{max-width:1230px;margin:12px auto 34px;padding:0 20px}
-.demo-inner{border-top:1px solid #dedad6;padding-top:30px}
-.demo-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-.demo-top h2{font-size:23px;letter-spacing:-.5px;margin:0 0 8px}
-.demo-eyebrow{font-size:11px;font-weight:700;letter-spacing:.06em;color:#1b2b5b;margin-bottom:7px}
-.demo-badge{font-size:11px;border:1px solid #1b2b5b;color:#1b2b5b;padding:7px 10px;white-space:nowrap}
-.demo-members{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:17px 0 22px}
-.demo-member{background:#fff;border:1px solid #dedad6;padding:14px}
-.demo-member b{display:block;font-size:14px}.demo-member small{display:block;color:#666;margin-top:5px}
-.demo-places{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.demo-place{border:1px solid #dcd8d4;background:#fff;padding:17px;display:flex;flex-direction:column;gap:12px}
-.demo-place h3{font-size:17px;margin:0;color:#111}
-.demo-category{font-size:11px;color:#666}
-.demo-time{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:5px 0;border-bottom:1px solid #ece9e6}
-.demo-metrics{font-size:12px;background:#f5f3f2;padding:11px;line-height:1.7;color:#555}
-.demo-place button{margin-top:auto}
-.demo-error{border-left:3px solid #a37637;background:#f5eee3;padding:14px;font-size:13px;line-height:1.8}
-.demo-info{color:#696766;font-size:12px;line-height:1.7}
-@media(max-width:700px){.demo-section{padding:0 16px}.demo-places{grid-template-columns:1fr}.demo-members{grid-template-columns:repeat(3,minmax(0,1fr))}.demo-member{padding:10px}}
+:root{font-family:Arial,'Noto Sans KR','Malgun Gothic',sans-serif;color:#111;background:#f5f3f2;font-size:14px}*{box-sizing:border-box}body{margin:0}button,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}header{padding:22px max(22px,calc((100% - 1160px)/2));border-bottom:1px solid #dedad6;display:flex;justify-content:space-between;align-items:center;gap:14px}header strong{font-size:19px;letter-spacing:-.7px}header small{display:block;color:#666;margin-top:5px;font-size:11px}.chip{border:1px solid #1b2b5b;color:#1b2b5b;font-size:10px;letter-spacing:1px;padding:7px 9px;white-space:nowrap}main{max-width:1160px;margin:auto;padding:42px 22px 70px}.eyebrow{letter-spacing:1.5px;font-weight:700;font-size:11px;color:#1b2b5b}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center;border-bottom:1px solid #dcd8d3;padding-bottom:38px}h1{font-size:36px;line-height:1.3;letter-spacing:-1.7px;margin:16px 0}h2{font-size:22px;letter-spacing:-.7px;margin:5px 0 9px}h3{font-size:17px;margin:0;letter-spacing:-.4px}p{line-height:1.8;color:#626262;margin:8px 0 14px}.hero-art{background:#eeece9;border:1px solid #dedad6;min-height:215px;display:grid;place-items:center;padding:25px}.hero-art svg{width:100%;max-width:350px}section{margin-top:32px}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.muted{font-size:12px;color:#737373}.notice{border-left:3px solid #1b2b5b;background:#efede9;padding:13px 16px;font-size:12px;color:#4e4e4e;line-height:1.8;margin:18px 0}.notice.error{border-left-color:#9c6c2e;background:#f3ede2}.members{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.member{background:#fff;border:1px solid #dedad6;padding:18px}.member .emoji{font-size:20px;margin-bottom:10px}.member strong{font-size:15px;display:block}.member span{display:block;color:#666;margin-top:7px;font-size:12px}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.toolbar label{font-size:12px;color:#666}select{background:white;border:1px solid #c7c4bf;padding:10px 12px;color:#111;min-width:145px}.places{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.place{border:1px solid #dedad6;background:white;padding:20px;display:flex;flex-direction:column;gap:15px;min-width:0}.place.top{border-top:4px solid #1b2b5b;padding-top:17px}.meta{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#666;font-size:11px}.rank{color:#1b2b5b;font-weight:700}.time{display:flex;justify-content:space-between;font-size:13px;border-bottom:1px solid #eeeae7;padding:8px 0}.time b{font-size:13px}.metrics{background:#f5f3f2;padding:12px;font-size:12px;color:#555;line-height:1.8}.actions{margin-top:auto;display:grid;gap:8px}.primary,.secondary{padding:13px 12px;min-height:43px;border:1px solid #1b2b5b;font-weight:700;text-align:center}.primary{background:#1b2b5b;color:#fff}.secondary{background:white;color:#1b2b5b}.vote-count{color:#666;font-size:12px;margin-top:0;text-align:center}.summary{background:#eeece9;border-top:1px solid #dedad6;padding:22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}.summary h3{margin-bottom:6px}.summary p{margin:0}.subtle{color:#666;font-size:11px;line-height:1.7}.foot{margin-top:42px;border-top:1px solid #dedad6;padding:18px 0;font-size:11px;color:#777;line-height:1.9}a{color:#1b2b5b}button:focus-visible,select:focus-visible{outline:3px solid #8294d3;outline-offset:2px}@media(max-width:850px){.hero{grid-template-columns:1fr}.places{grid-template-columns:1fr}.hero-art{min-height:155px}.members{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:480px){main{padding:28px 16px 50px}header{padding:18px 16px}h1{font-size:29px}.member{padding:12px}.summary{grid-template-columns:1fr}.chip{font-size:9px}}
 </style>
 </head>
 <body>
-<header><div><b>여기가 딱이긴 현대</b><div><small>각자 출발해도, 만날 곳은 공평하게</small></div></div><span class="tag">WEB PREVIEW · v0.6</span></header>
-<section class="hero" aria-labelledby="welcomeTitle">
-  <div>
-    <div class="hero-kicker">A BETTER PLACE TO MEET</div>
-    <h1 id="welcomeTitle">친구들과 어디서 만날까요?</h1>
-    <p>각자의 출발지를 등록하면 지도에서 한눈에 볼 수 있어요. 모두가 편한 만남의 시작, 여기서 정해보세요.</p>
-    <button class="primary hero-action" id="startBtn" type="button">출발지 등록하기</button>
-    <div class="hero-note">데모 장소 및 이동 시간은 가상 데이터예요. Supabase에서 실제로 불러오며 실시간 투표는 개발 예정이에요.</div>
-  </div>
-  <div class="hero-art" aria-hidden="true">
-    <svg viewBox="0 0 330 205" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M44 42L286 54L160 179Z" stroke="#1B2B5B" stroke-width="2" stroke-dasharray="7 5"/>
-      <path d="M44 42L160 109L286 54M160 109V179" stroke="#9CA4B4" stroke-width="1.4" stroke-dasharray="4 6"/>
-      <circle cx="44" cy="42" r="14" fill="#1B2B5B"/><circle cx="286" cy="54" r="14" fill="#1B2B5B"/><circle cx="160" cy="179" r="14" fill="#1B2B5B"/>
-      <circle cx="160" cy="109" r="24" fill="#F5F3F2" stroke="#1B2B5B" stroke-width="2"/>
-      <path d="M150 109L157 116L171 101" stroke="#1B2B5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      <text x="44" y="47" fill="white" font-size="12" text-anchor="middle" font-weight="700">A</text>
-      <text x="286" y="59" fill="white" font-size="12" text-anchor="middle" font-weight="700">B</text>
-      <text x="160" y="184" fill="white" font-size="12" text-anchor="middle" font-weight="700">C</text>
-    </svg>
-  </div>
-</section>
-<section class="demo-section" aria-labelledby="demoTitle"><div class="demo-inner">
-<div class="demo-top"><div><div class="demo-eyebrow">SUPABASE DEMO</div><h2 id="demoTitle">우리 모임 추천 장소</h2><p class="muted">김포·인천·수원에서 출발하는 친구 3명의 시연용 모임입니다. 저장된 후보를 이동 시간 기준으로 비교해 보세요.</p></div><span class="demo-badge">MOCK DATA</span></div>
-<div id="demoState" class="status" role="status">데모 데이터를 불러올 준비 중이에요.</div>
-<div id="demoMembers" class="demo-members" aria-label="참가자 목록"></div>
-<div id="demoPlaces" class="demo-places" aria-label="추천 후보 장소"></div>
-<p class="demo-info">이동 시간 및 추천 장소의 좌표는 실제 주행 측정값이 아닌 가상 시연 데이터입니다. 이 화면은 DB 조회 시연이며, 투표·차량 SDK 연동은 아직 구현되지 않았습니다.</p>
-</div></section>
+<header><div><strong>여기가 딱이긴 현대</strong><small>각자 출발해도, 만날 곳은 공평하게</small></div><span class="chip">WEB DEMO · v0.7</span></header>
 <main>
-<section class="panel" id="origins">
-<h2>출발지 등록</h2><p class="muted">모임에 참여할 사람들의 출발지를 입력해 주세요. 입력한 장소는 이 브라우저에만 저장돼요.</p>
-<div id="participants"></div>
-<div class="label">새 참가자 추가</div>
-<div class="row"><input id="newName" maxlength="20" placeholder="예: 친구 D"><button id="add" class="primary" style="white-space:nowrap">+ 추가</button></div>
-<div id="status" class="status" role="status">지도를 불러오는 중이에요.</div>
-
-<div class="map-tips"><b>이번 단계:</b> 실제 장소 검색 · 출발지 마커 · 다각형 표시 · 목적지 길찾기<br><b>다음 단계:</b> 실제 자동차 이동 시간 계산 · 자동 만남 장소 추천<br>실시간 투표 및 현대차 내장 내비게이션 직접 연동은 아직 개발 예정</div>
-<section class="destination-panel" aria-labelledby="destinationTitle">
-<h2 id="destinationTitle">어디서 만날까요?</h2>
-<p class="muted">카페나 음식점, 만나고 싶은 장소를 검색해 목적지로 지정하세요.</p>
-<label class="label" for="destinationQuery">만날 장소 검색</label>
-<div class="row"><input id="destinationQuery" placeholder="예: 부평역 카페, 서울숲" autocomplete="off"><button id="destinationSearch" class="primary" type="button">검색</button></div>
-<div id="destinationResults" aria-live="polite"></div>
-<div id="selectedDestination" class="selected-destination" hidden>
-<span class="destination-kicker">선택한 목적지</span>
-<strong id="selectedDestinationName"></strong>
-<small id="selectedDestinationAddress"></small>
-<button class="primary full nav-action" type="button" id="navigateBtn">↗ 자동차 길찾기</button>
-<p class="muted nav-note">Google 지도에서 목적지까지의 자동차 경로를 엽니다. 길 안내 시작 여부는 기기에 따라 달라질 수 있어요.</p>
-</div>
-<p class="muted" id="destinationHelp">추천 알고리즘 및 투표는 아직 준비 중이에요. 현재는 원하는 장소를 직접 검색할 수 있어요.</p>
-</section>
-</section>
-<section class="panel"><h2>우리 출발 위치</h2><p class="muted">검색 후 결과를 선택하면 지도에 마커가 표시돼요. 마커를 누르면 출발지를 확인할 수 있어요. 만날 장소는 별도 마커로 표시돼요.</p>
-<div class="map-box"><div id="map" aria-label="참가자별 실제 출발 위치가 표시되는 지도"></div><div id="mapMessage" class="map-message">지도를 불러오는 중이에요.</div><div class="map-top">참가자 출발지 &nbsp; / &nbsp; 출발지 연결 영역</div></div>
-<p class="muted" id="mapInfo">아직 실제 장소가 등록되지 않았어.</p>
-</section>
-</main><footer>공모전 프로젝트 프로토타입 · GPS 수집, 실제 자동차 이동 시간 계산, 실시간 투표 및 차량 내장 내비게이션 연동은 아직 구현되지 않았습니다.</footer>
+<section class="hero" style="margin-top:0"><div><div class="eyebrow">A BETTER PLACE TO MEET</div><h1>친구들과 어디서<br/>만날까요?</h1><p>서로 다른 곳에서 출발하는 친구들의 이동 시간을 한눈에 비교하고, 모두에게 편리한 장소를 함께 골라보세요.</p><button class="primary" id="startBtn" type="button">추천 장소 살펴보기</button><p class="subtle">현재는 시연용 가상 주행 시간으로 추천 과정을 보여줍니다.</p></div><div class="hero-art" aria-label="세 명의 출발지와 가운데 만남 장소를 연결한 그림"><svg viewBox="0 0 330 200" role="img" aria-hidden="true"><path d="M45 37 289 51 168 172Z" fill="none" stroke="#1b2b5b" stroke-width="2" stroke-dasharray="6 5"/><path d="M45 37 166 96 289 51M168 172 166 96" fill="none" stroke="#9ca3b8" stroke-width="1.2" stroke-dasharray="3 5"/><circle cx="45" cy="37" r="16" fill="#1b2b5b"/><circle cx="289" cy="51" r="16" fill="#1b2b5b"/><circle cx="168" cy="172" r="16" fill="#1b2b5b"/><g fill="white" font-size="13" font-family="Arial" text-anchor="middle"><text x="45" y="42">A</text><text x="289" y="56">B</text><text x="168" y="177">C</text></g><circle cx="166" cy="96" r="23" fill="#f5f3f2" stroke="#1b2b5b" stroke-width="2"/><path d="m156 96 7 7 15-17" fill="none" stroke="#1b2b5b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div></section>
+<section><div class="section-head"><div><div class="eyebrow">OUR GROUP</div><h2>이번 모임의 출발지</h2><p class="muted">김포 · 인천 · 수원에서 출발하는 3명의 시연용 모임</p></div><span class="chip">3 MEMBERS</span></div><div class="members" id="members"></div></section>
+<section id="recommendations"><div class="section-head"><div><div class="eyebrow">RECOMMENDATION</div><h2>모두에게 딱 맞는 장소</h2><p class="muted">저장된 후보들의 가상 이동 시간을 기준으로 추천 순위를 계산합니다.</p></div><div class="toolbar"><label for="sort">추천 방식</label><select id="sort"><option value="fair">공평한 만남</option><option value="fast">빠른 만남</option><option value="gap">시간 차이 최소</option></select></div></div><div id="dbStatus" class="notice" role="status">모임 정보를 불러오는 중이에요.</div><div class="places" id="places"></div></section>
+<section><div class="section-head"><div><div class="eyebrow">YOUR CHOICE</div><h2>우리의 만남 장소</h2></div></div><div class="summary"><div><h3 id="chosenTitle">아직 선택한 장소가 없어요.</h3><p id="chosenText">마음에 드는 장소를 선택하면 이곳에서 확인할 수 있어요.</p><p class="subtle">장소 선택은 이 브라우저에서만 저장됩니다. 실제 친구 간 실시간 투표는 이후 구현할 예정입니다.</p></div><button type="button" class="secondary" id="navBtn" disabled>차량 내비게이션 연동 예정</button></div></section>
+<footer class="foot">이 버전은 공개 시연용 웹 프로토타입입니다. 실제 자동차 이동 시간·장소 좌표를 검증하지 않았고, Pleos Connect / NaviHelper SDK 연결 및 실시간 투표는 구현되지 않았습니다. 카카오맵과 Google 지도 연결은 사용하지 않습니다.</footer>
+</main>
 <script>
 'use strict';
-const $=id=>document.getElementById(id);
-// 개발자 설정: 카카오 JavaScript 키만 사용하세요 (REST/Admin 키는 절대 넣지 마세요).
-// 카카오디벨로퍼스에서 https://affossoffa.github.io 도메인을 허용해야 합니다.
-// 클라이언트 JavaScript 키는 브라우저에 공개되므로 도메인/쿼터 제한을 설정하세요.
-const KAKAO_JS_KEY = 'YOUR_KAKAO_JAVASCRIPT_KEY';
-// Supabase Dashboard → Project Settings → API Keys → Publishable key
-// 공개 브라우저용 키만 입력하세요. sb_secret/service_role 키는 절대 입력 금지.
+// 개발자 설정: 본인의 Supabase Publishable key만 입력하세요.
+// sb_secret_ / service_role 키는 브라우저 소스에 절대 넣지 마세요.
 const SUPABASE_URL = 'https://gzawmflzuvsmvxlwppcr.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable__jpCCvJxTFUsw786QegSOg_neSVA1YM';
 const DEMO_ROOM_ID = 'ddda404a-0458-4df1-b6fa-f012316d949d';
 
-const STORE='here-hyundai-origins-v02';
-let people=load(); let map=null,places=null,geocoder=null,markers=[],polygon=null,activeSearch=0; let destination=null,destinationMarker=null,destinationInfo=null,destinationRequest=0;
-function load(){try{const v=JSON.parse(localStorage.getItem(STORE));if(Array.isArray(v)&&v.length&&v.every(p=>p&&typeof p.id==='number'&&typeof p.name==='string'))return v.slice(0,10)}catch(_){}return [{id:1,name:'나',place:null},{id:2,name:'친구 A',place:null},{id:3,name:'친구 B',place:null}];}
-function persist(){try{localStorage.setItem(STORE,JSON.stringify(people))}catch(_){}}
-function safe(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-function msg(s,warn=false){$('status').textContent=s;$('status').className='status'+(warn?' warning':'');}
-function renderPeople(){const root=$('participants');root.innerHTML='';people.forEach(p=>{const card=document.createElement('div');card.className='person';card.innerHTML=`<div class="person-head"><div><b>${safe(p.name)}</b><small>${p.place?safe(p.place.name):'출발지 미설정'}</small></div><button class="secondary" data-del="${p.id}" aria-label="${safe(p.name)} 삭제">삭제</button></div><div class="row" style="margin-top:9px"><input aria-label="${safe(p.name)} 출발지 검색" data-search="${p.id}" placeholder="주소, 역, 건물 검색" value=""><button class="primary" data-go="${p.id}">검색</button></div><div class="results" id="result-${p.id}"></div>`;root.append(card);});root.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>removePerson(Number(b.dataset.del)));root.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>searchPerson(Number(b.dataset.go)));root.querySelectorAll('[data-search]').forEach(inp=>inp.onkeydown=e=>{if(e.key==='Enter')searchPerson(Number(inp.dataset.search))});}
-function removePerson(id){if(people.length<=1){msg('참가자는 최소 1명이 있어야 해.',true);return;}people=people.filter(p=>p.id!==id);persist();renderPeople();renderMap();}
-$('add').onclick=()=>{const name=$('newName').value.trim();if(!name){msg('참가자 이름을 입력해 줘.',true);return;}if(people.length>=10){msg('최대 10명까지 등록할 수 있어.',true);return;}people.push({id:Math.max(0,...people.map(p=>p.id))+1,name,place:null});$('newName').value='';persist();renderPeople();renderMap();};
-function searchPerson(id){const p=people.find(x=>x.id===id);if(!p)return;const query=document.querySelector(`[data-search="${id}"]`).value.trim();const box=$(`result-${id}`);if(!query){msg('검색할 장소나 주소를 입력해 줘.',true);return;}if(!places||!geocoder){msg('현재 지도를 사용할 수 없어요. 잠시 후 다시 시도해 주세요.',true);return;}const request=++activeSearch;box.textContent='검색 중...';places.keywordSearch(query,(list,status)=>{if(request!==activeSearch)return;if(status===kakao.maps.services.Status.OK&&list.length){showResults(id,list.map(x=>({name:x.place_name,address:x.road_address_name||x.address_name,lat:Number(x.y),lng:Number(x.x)})));return;}geocoder.addressSearch(query,(res,s)=>{if(request!==activeSearch)return;if(s===kakao.maps.services.Status.OK&&res.length)showResults(id,res.map(x=>({name:x.address_name,address:x.road_address?.address_name||x.address_name,lat:Number(x.y),lng:Number(x.x)})));else{box.textContent='검색 결과가 없어. 더 구체적인 주소나 건물명을 입력해 봐.';msg('검색 결과가 없어.',true);}});},{size:5});}
-function showResults(id,results){const box=$(`result-${id}`);box.innerHTML='';results.slice(0,5).forEach(place=>{const b=document.createElement('button');b.type='button';b.className='search-result';const title=document.createElement('strong');title.textContent=place.name;const sub=document.createElement('small');sub.textContent=place.address;b.append(title,sub);b.onclick=()=>{const p=people.find(x=>x.id===id);if(!p)return;p.place=place;persist();renderPeople();renderMap();msg(`${p.name}의 출발지: ${place.name} 등록 완료`);};box.append(b);});}
-function searchDestination(){
- const query=$('destinationQuery').value.trim();const box=$('destinationResults');
- if(!query){msg('찾고 싶은 장소를 입력해 주세요.',true);$('destinationQuery').focus();return;}
- if(!places||!geocoder){msg('지도가 준비되지 않았어요. 잠시 후 다시 시도해 주세요.',true);return;}
- const request=++destinationRequest;box.textContent='장소를 검색하는 중이에요...';
- places.keywordSearch(query,(list,status)=>{
-  if(request!==destinationRequest)return;
-  if(status===kakao.maps.services.Status.OK&&list.length){showDestinationResults(list.map(x=>({name:x.place_name,address:x.road_address_name||x.address_name,lat:Number(x.y),lng:Number(x.x)})));return;}
-  geocoder.addressSearch(query,(res,st)=>{
-   if(request!==destinationRequest)return;
-   if(st===kakao.maps.services.Status.OK&&res.length){showDestinationResults(res.map(x=>({name:x.address_name,address:x.road_address?.address_name||x.address_name,lat:Number(x.y),lng:Number(x.x)})));}
-   else box.textContent='검색 결과가 없어요. 장소 이름이나 주소를 바꿔 검색해 보세요.';
-  });
- },{size:7});
+const FALLBACK_MEMBERS=[{id:'demo-a',name:'나',start_location:'김포'},{id:'demo-b',name:'친구 A',start_location:'인천'},{id:'demo-c',name:'친구 B',start_location:'수원'}];
+const FALLBACK_PLACES=[
+ {id:'demo-p1',name:'시연 카페 A',category:'카페',travel_times:{'나':35,'친구 A':42,'친구 B':38},is_mock:true},
+ {id:'demo-p2',name:'시연 맛집 B',category:'음식점',travel_times:{'나':48,'친구 A':30,'친구 B':35},is_mock:true},
+ {id:'demo-p3',name:'시연 문화공간 C',category:'문화시설',travel_times:{'나':55,'친구 A':35,'친구 B':25},is_mock:true}
+];
+let members=FALLBACK_MEMBERS,places=FALLBACK_PLACES,choiceId=null;
+const $=id=>document.getElementById(id);
+const node=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=String(text);return e};
+const keyReady=SUPABASE_PUBLISHABLE_KEY.startsWith('sb_publishable_')||SUPABASE_PUBLISHABLE_KEY.length>35&&!SUPABASE_PUBLISHABLE_KEY.includes('YOUR_');
+function score(place){const times=members.map(m=>Number(place.travel_times?.[m.name]));const valid=times.every(x=>Number.isFinite(x)&&x>=0);if(!valid)return {valid:false,times,maximum:Infinity,sum:Infinity,gap:Infinity};const maximum=Math.max(...times),minimum=Math.min(...times),sum=times.reduce((a,b)=>a+b,0);return {valid,times,maximum,sum,gap:maximum-minimum}}
+function render(){const mem=$('members');mem.replaceChildren();members.forEach((m,i)=>{const card=node('div','member');card.append(node('div','emoji',['🚗','🚙','🚘'][i%3]),node('strong','',m.name),node('span','',m.start_location+' 출발'));mem.append(card)});
+ const sorted=places.map(p=>({...score(p),place:p}));const mode=$('sort').value;sorted.sort((a,b)=>{const metric=mode==='fast'?'sum':mode==='gap'?'gap':'maximum';return a[metric]-b[metric]||a.maximum-b.maximum||a.sum-b.sum});
+ const list=$('places');list.replaceChildren();sorted.forEach((v,i)=>{const p=v.place,card=node('article','place'+(i===0?' top':''));const meta=node('div','meta');meta.append(node('span','',p.category||'장소'),node('span','rank',i===0?'추천 1순위':'후보 '+(i+1)));card.append(meta,node('h3','',p.name));members.forEach((m,j)=>{const row=node('div','time');row.append(node('span','',m.name+' · '+m.start_location),node('b','',Number.isFinite(v.times[j])?v.times[j]+'분':'정보 없음'));card.append(row)});
+ const avg=v.valid?(v.sum/members.length).toFixed(1):'-';card.append(node('div','metrics',v.valid?`최장 이동 ${v.maximum}분 · 평균 ${avg}분 · 이동 시간 차이 ${v.gap}분`:'이동 시간 정보가 부족합니다.'));
+ const actions=node('div','actions'),select=node('button',choiceId===p.id?'primary':'secondary',choiceId===p.id?'✓ 선택한 장소':'이 장소 선택하기');select.type='button';select.onclick=()=>{choiceId=p.id;try{localStorage.setItem('hyundai-demo-place',p.id)}catch(_){};render()};actions.append(select);card.append(actions);list.append(card)});
+ const selected=places.find(p=>p.id===choiceId);$('chosenTitle').textContent=selected?selected.name:'아직 선택한 장소가 없어요.';$('chosenText').textContent=selected?'선택한 장소입니다. 차량 연동은 Pleos Connect용 Android 앱 개발 후 사용할 수 있습니다.':'마음에 드는 장소를 선택하면 이곳에서 확인할 수 있어요.';
 }
-function showDestinationResults(results){
- const box=$('destinationResults');box.replaceChildren();
- results.filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lng)).slice(0,6).forEach(place=>{
-  const btn=document.createElement('button');btn.type='button';btn.className='search-result';
-  const name=document.createElement('strong');name.textContent=place.name;
-  const address=document.createElement('small');address.textContent=place.address||'주소 정보 없음';btn.append(name,address);
-  btn.onclick=()=>selectDestination(place);box.append(btn);
- });
- if(!box.children.length)box.textContent='좌표를 확인할 수 있는 장소가 없어요.';
-}
-function selectDestination(place){
- destination={...place};
- $('selectedDestination').hidden=false;
- $('selectedDestinationName').textContent=place.name;
- $('selectedDestinationAddress').textContent=place.address||'주소 정보 없음';
- $('destinationResults').replaceChildren();
- $('destinationQuery').value=place.name;
- $('destinationHelp').textContent='장소가 선택됐어요. 자동차 길찾기 버튼으로 경로를 확인하세요.';
- msg(`목적지 ${place.name} 선택 완료`);
- renderMap();
-}
-function openNavigation(){
- if(!destination||!Number.isFinite(destination.lat)||!Number.isFinite(destination.lng)){
-  msg('먼저 목적지를 검색해서 선택해 주세요.',true);return;
- }
- const params=new URLSearchParams({api:'1',destination:`${destination.lat},${destination.lng}`,travelmode:'driving',dir_action:'navigate'});
- const url=`https://www.google.com/maps/dir/?${params.toString()}`;
- const tab=window.open(url,'_blank','noopener,noreferrer');
- if(!tab){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.click();}
-}
-$('destinationSearch').onclick=searchDestination;
-$('destinationQuery').addEventListener('keydown',e=>{if(e.key==='Enter')searchDestination();});
-$('navigateBtn').onclick=openNavigation;
-function renderMap(){if(!map)return;markers.forEach(m=>m.setMap(null));markers=[];if(destinationInfo)destinationInfo.close();if(destinationMarker)destinationMarker.setMap(null);destinationMarker=null;if(polygon){polygon.setMap(null);polygon=null;}const active=people.filter(p=>p.place&&Number.isFinite(p.place.lat)&&Number.isFinite(p.place.lng));const bounds=new kakao.maps.LatLngBounds();active.forEach((p,i)=>{const pos=new kakao.maps.LatLng(p.place.lat,p.place.lng);bounds.extend(pos);const marker=new kakao.maps.Marker({position:pos,map,title:`${p.name}: ${p.place.name}`});const info=new kakao.maps.InfoWindow({content:`<div style="padding:8px 12px;white-space:nowrap;font-size:12px">${safe(p.name)} · ${safe(p.place.name)}</div>`});kakao.maps.event.addListener(marker,'click',()=>{markers.forEach(x=>x.info.close());info.open(map,marker);});markers.push({setMap:v=>{info.close();marker.setMap(v)},info});});
-if(active.length>=3){const points=active.map(p=>({lat:p.place.lat,lng:p.place.lng}));const sorted=convexHull(points);polygon=new kakao.maps.Polygon({map,path:sorted.map(p=>new kakao.maps.LatLng(p.lat,p.lng)),strokeWeight:3,strokeColor:'#1b2b5b',strokeOpacity:.9,strokeStyle:'shortdash',fillColor:'#1b2b5b',fillOpacity:.09});}
-if(destination){
- const pos=new kakao.maps.LatLng(destination.lat,destination.lng);
- bounds.extend(pos);
- destinationMarker=new kakao.maps.Marker({position:pos,map,title:`만날 장소: ${destination.name}`});
- destinationInfo=new kakao.maps.InfoWindow({content:`<div style="padding:8px 12px;white-space:nowrap;font-size:12px"><strong>목적지</strong> · ${safe(destination.name)}</div>`});
- kakao.maps.event.addListener(destinationMarker,'click',()=>destinationInfo.open(map,destinationMarker));
-} else {destinationMarker=null;destinationInfo=null;}
-if(active.length===0&&destination){map.setCenter(new kakao.maps.LatLng(destination.lat,destination.lng));map.setLevel(5);}
-else if(active.length===1&&!destination){map.setCenter(new kakao.maps.LatLng(active[0].place.lat,active[0].place.lng));map.setLevel(6);}else if(active.length>1||active.length>=1&&destination){map.setBounds(bounds,80,50,50,50);} $('mapInfo').textContent=active.length?`실제 좌표 등록: ${active.length}명 / ${people.length}명 · 선으로 연결한 영역은 도로 주행시간 기준이 아니야.`:'아직 실제 장소가 등록되지 않았어. 왼쪽에서 출발지를 검색해 줘.';}
-function convexHull(points){const sorted=[...points].sort((a,b)=>a.lng-b.lng||a.lat-b.lat);if(sorted.length<=2)return sorted;const cross=(o,a,b)=>(a.lng-o.lng)*(b.lat-o.lat)-(a.lat-o.lat)*(b.lng-o.lng);const low=[];for(const p of sorted){while(low.length>=2&&cross(low[low.length-2],low[low.length-1],p)<=0)low.pop();low.push(p);}const up=[];for(const p of sorted.slice().reverse()){while(up.length>=2&&cross(up[up.length-2],up[up.length-1],p)<=0)up.pop();up.push(p);}low.pop();up.pop();return low.concat(up);}
-function connect(key){
- if(!key || key==='YOUR_KAKAO_JAVASCRIPT_KEY'){
-   fail('아직 지도가 연결되지 않았어요.');
-   $('mapMessage').textContent='지도 준비 중이에요.\n잠시 후 다시 이용해 주세요.';
-   return;
- }
- if(!/^[a-zA-Z0-9_-]+$/.test(key)) {fail('지도를 불러오지 못했어요.');return;}
- if(window.kakao?.maps) {initMap();return;}
- msg('지도를 불러오는 중이에요.');
- const script=document.createElement('script');
- script.src=`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(key)}&autoload=false&libraries=services`;
- script.onload=()=>{if(!window.kakao?.maps){fail('지도를 불러오지 못했어요.');return;}initMap();};
- script.onerror=()=>fail('지도를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.');
- document.head.append(script);
-}
-function initMap(){
- kakao.maps.load(()=>{
-   try{
-     map=new kakao.maps.Map($('map'),{center:new kakao.maps.LatLng(37.5665,126.978),level:10});
-     places=new kakao.maps.services.Places();
-     geocoder=new kakao.maps.services.Geocoder();
-     $('mapMessage').hidden=true;
-     msg('지도가 준비됐어요. 출발지를 검색해 보세요.');
-     renderMap();
-   }catch(e){fail('지도를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.');}
- });
-}
-function fail(s){msg(s,true);$('mapMessage').textContent=s+'\n(출발지 등록 기능은 지도가 연결되면 사용할 수 있어요.)';}
-$('startBtn').onclick=()=>{$('origins').scrollIntoView({behavior:'smooth',block:'start'});};
-
-// DB data is intentionally read-only; no votes are written from the public demo.
-function demoText(node, text){node.textContent=String(text ?? '');}
-async function dbRead(table,select='*'){
- const url=new URL(`${SUPABASE_URL}/rest/v1/${table}`);
- url.searchParams.set('select',select);
- url.searchParams.set('room_id',`eq.${DEMO_ROOM_ID}`);
- const response=await fetch(url.toString(),{
-   method:'GET',headers:{apikey:SUPABASE_PUBLISHABLE_KEY,Accept:'application/json'},cache:'no-store'
- });
- if(!response.ok)throw new Error(`데이터 조회 실패 (${response.status})`);
- return response.json();
-}
-async function loadDemo(){
- const state=$('demoState'),membersBox=$('demoMembers'),placesBox=$('demoPlaces');
- if(!SUPABASE_PUBLISHABLE_KEY || SUPABASE_PUBLISHABLE_KEY==='YOUR_SUPABASE_PUBLISHABLE_KEY'){
-  state.className='demo-error';demoText(state,'DB 연결 준비 중이에요. 개발자가 README의 Supabase 설정을 완료하면 모임 정보를 볼 수 있어요.');return;
- }
- state.className='status';demoText(state,'모임 정보를 불러오는 중이에요...');
- try{
-  const [members,locations]=await Promise.all([
-    dbRead('members','id,name,start_location'),
-    dbRead('places','id,name,category,latitude,longitude,travel_times,is_mock')
-  ]);
-  if(!Array.isArray(members)||!Array.isArray(locations)||!members.length||!locations.length)throw new Error('데모 참가자 또는 장소 데이터가 비어 있어요.');
-  membersBox.replaceChildren();placesBox.replaceChildren();
-  for(const m of members){
-   const item=document.createElement('div');item.className='demo-member';
-   const name=document.createElement('b');demoText(name,m.name);
-   const loc=document.createElement('small');demoText(loc,m.start_location||'출발지 미설정');
-   item.append(name,loc);membersBox.append(item);
-  }
-  const scored=locations.map(place=>{
-   const times=members.map(m=>Number(place.travel_times?.[m.name]));
-   const valid=times.length>0&&times.every(n=>Number.isFinite(n)&&n>=0);
-   return {place,times,valid,max:valid?Math.max(...times):Infinity,total:valid?times.reduce((a,b)=>a+b,0):Infinity};
-  }).sort((a,b)=>a.max-b.max||a.total-b.total);
-  scored.forEach((record,index)=>{
-   const {place,times,valid,max,total}=record;
-   const card=document.createElement('article');card.className='demo-place';
-   const cat=document.createElement('div');cat.className='demo-category';
-   demoText(cat,`${index===0&&valid?'이동 시간 기준 1순위 · ':''}${place.category||'장소'} · 시연 데이터`);
-   const title=document.createElement('h3');demoText(title,place.name);
-   card.append(cat,title);
-   members.forEach((m,i)=>{
-    const r=document.createElement('div');r.className='demo-time';
-    const n=document.createElement('span');demoText(n,m.name);
-    const t=document.createElement('strong');demoText(t,Number.isFinite(times[i])?`${times[i]}분`:'데이터 없음');
-    r.append(n,t);card.append(r);
-   });
-   const stats=document.createElement('div');stats.className='demo-metrics';
-   demoText(stats,valid?`최장 이동 ${max}분 · 평균 ${(total/members.length).toFixed(1)}분 · 시간 차이 ${max-Math.min(...times)}분`:'비교할 이동 시간 데이터가 부족합니다.');
-   card.append(stats);
-   const nav=document.createElement('button');nav.type='button';nav.className='primary full';
-   demoText(nav,'이 위치로 자동차 길찾기');
-   const lat=Number(place.latitude),lng=Number(place.longitude);
-   if(!Number.isFinite(lat)||!Number.isFinite(lng))nav.disabled=true;
-   nav.onclick=()=>{
-    const params=new URLSearchParams({api:'1',destination:`${lat},${lng}`,travelmode:'driving'});
-    window.open(`https://www.google.com/maps/dir/?${params}`,'_blank','noopener,noreferrer');
-   };
-   card.append(nav);placesBox.append(card);
-  });
-  state.className='status';demoText(state,`Supabase 연결 완료 · 참가자 ${members.length}명 · 후보 장소 ${locations.length}곳 (읽기 전용)`);
- }catch(err){state.className='demo-error';demoText(state,`데모 데이터를 불러오지 못했어요. ${err.message} · URL, Publishable key, RLS 정책을 확인해 주세요.`);}
-}
-
-renderPeople();connect(KAKAO_JS_KEY);
-loadDemo();
-</script></body></html>
+async function readTable(table,fields){const url=new URL(SUPABASE_URL+'/rest/v1/'+table);url.searchParams.set('select',fields);url.searchParams.set('room_id','eq.'+DEMO_ROOM_ID);const resp=await fetch(url.toString(),{headers:{apikey:SUPABASE_PUBLISHABLE_KEY,Accept:'application/json'},cache:'no-store'});if(!resp.ok)throw new Error('HTTP '+resp.status);return resp.json()}
+async function setup(){try{choiceId=localStorage.getItem('hyundai-demo-place')}catch(_){};render();if(!keyReady){$('dbStatus').textContent='시연용 내장 목데이터를 표시하고 있어요. Supabase 연결은 개발자가 Publishable key를 설정하면 활성화됩니다.';return}
+ try{const [m,p]=await Promise.all([readTable('members','id,name,start_location'),readTable('places','id,name,category,travel_times,is_mock')]);if(!m.length||!p.length)throw new Error('저장된 데모 정보가 비어 있어요.');members=m;places=p;$('dbStatus').textContent='Supabase 연결 완료 · 참가자 '+m.length+'명 · 후보 장소 '+p.length+'곳 · 이동 시간은 목데이터입니다.';render()}catch(e){$('dbStatus').classList.add('error');$('dbStatus').textContent='Supabase 연결 실패 ('+e.message+'). 지금은 내장 목데이터로 시연 중입니다. 실제 DB 연결은 URL, Publishable key 및 RLS 설정을 확인해 주세요.'}}
+$('sort').addEventListener('change',render);$('startBtn').addEventListener('click',()=>$('recommendations').scrollIntoView({behavior:'smooth'}));$('navBtn').addEventListener('click',()=>{});setup();
+</script>
+</body>
+</html>
