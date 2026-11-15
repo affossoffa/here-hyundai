@@ -10,6 +10,7 @@
 
 - **웹 프로토타입:** https://affossoffa.github.io/here-hyundai/
 - **GitHub:** https://github.com/affossoffa/here-hyundai
+- **유튜브 링크:** https://www.youtube.com/watch?v=gBe25F7_Ac0
 
 ## 💡 기획 배경
 
