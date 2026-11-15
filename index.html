@@ -215,10 +215,84 @@ function renderPlaceDetail(){
  const nav=node('button','secondary','차량 내비게이션 연동 예정');nav.type='button';nav.disabled=true;detail.append(nav);
  const state=node('p','detail-hint',choiceId===selected.id?(followTarget?followTarget+'의 핑을 따라 이 장소에 투표했어요.':'내가 이 장소에 투표했어요.'):'지도에서 후보를 선택하거나 친구 핑의 따라가기를 눌러 보세요.');detail.append(state);
 }
-async function readTable(table,fields){const url=new URL(SUPABASE_URL+'/rest/v1/'+table);url.searchParams.set('select',fields);url.searchParams.set('room_id','eq.'+DEMO_ROOM_ID);const resp=await fetch(url.toString(),{headers:{apikey:SUPABASE_PUBLISHABLE_KEY,Accept:'application/json'},cache:'no-store'});if(!resp.ok)throw new Error('HTTP '+resp.status);return resp.json()}
-async function setup(){try{choiceId=localStorage.getItem('hyundai-demo-place');followTarget=localStorage.getItem('hyundai-demo-follow')}catch(_){};render();if(!keyReady){$('dbStatus').textContent='시연용 내장 목데이터를 표시하고 있어요. Supabase 연결은 개발자가 Publishable key를 설정하면 활성화됩니다.';return}
- try{const [m,p]=await Promise.all([readTable('members','id,name,start_location'),readTable('places','id,name,category,travel_times,is_mock')]);if(!m.length||!p.length)throw new Error('저장된 데모 정보가 비어 있어요.');members=m;places=p;$('dbStatus').textContent='Supabase 연결 완료 · 참가자 '+m.length+'명 · 후보 장소 '+p.length+'곳 · 이동 시간은 목데이터입니다.';render()}catch(e){$('dbStatus').classList.add('error');$('dbStatus').textContent='Supabase 연결 실패 ('+e.message+'). 지금은 내장 목데이터로 시연 중입니다. 실제 DB 연결은 URL, Publishable key 및 RLS 설정을 확인해 주세요.'}}
-$('sort').addEventListener('change',render);$('navBtn').addEventListener('click',()=>{});setup();
+
+async function readTable(table, fields) {
+  const url = new URL(SUPABASE_URL + '/rest/v1/' + table);
+  url.searchParams.set('select', fields);
+  url.searchParams.set('room_id', 'eq.' + DEMO_ROOM_ID);
+
+  const resp = await fetch(url.toString(), {
+    headers: {
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      Accept: 'application/json'
+    },
+    cache: 'no-store'
+  });
+
+  if (!resp.ok) {
+    throw new Error('HTTP ' + resp.status);
+  }
+
+  return resp.json();
+}
+
+async function setup() {
+  try {
+    choiceId = localStorage.getItem('hyundai-demo-place');
+    followTarget = localStorage.getItem('hyundai-demo-follow');
+  } catch (_) {}
+
+  render();
+
+  const dbStatus = $('dbStatus');
+
+  // Supabase 키가 설정되지 않은 경우
+  if (!keyReady) {
+    dbStatus.classList.remove('error');
+    dbStatus.textContent =
+      'DEMO MODE · 시연용 데이터를 기반으로 추천 결과를 보여드립니다.';
+    return;
+  }
+
+  try {
+    const [m, p] = await Promise.all([
+      readTable('members', 'id,name,start_location'),
+      readTable('places', 'id,name,category,travel_times,is_mock')
+    ]);
+
+    if (!m.length || !p.length) {
+      throw new Error('저장된 데모 정보가 비어 있어요.');
+    }
+
+    members = m;
+    places = p;
+
+    dbStatus.classList.remove('error');
+    dbStatus.textContent =
+      'Supabase 연결 완료 · 참가자 ' +
+      m.length +
+      '명 · 후보 장소 ' +
+      p.length +
+      '곳 · 이동 시간은 시연용 데이터입니다.';
+
+    render();
+
+  } catch (e) {
+    // 개발자에게만 실제 오류 표시
+    console.error('Supabase 연결 오류:', e);
+
+    // 일반 사용자에게는 간결한 시연 안내 표시
+    dbStatus.classList.remove('error');
+    dbStatus.textContent =
+      'DEMO MODE · 시연용 데이터를 기반으로 추천 결과를 보여드립니다.';
+  }
+}
+
+$('sort').addEventListener('change', render);
+$('navBtn').addEventListener('click', () => {});
+
+setup();
+
 </script>
 </body>
 </html>
