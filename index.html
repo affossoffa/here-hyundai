@@ -38,17 +38,37 @@ main{max-width:1270px;padding:26px 20px 40px;margin:auto;display:grid;grid-templ
 .selected-destination small{display:block;color:#77716e;font-size:12px;line-height:1.5;margin-bottom:16px}
 .selected-destination .nav-action{font-size:14px}
 .nav-note{margin:11px 0 0!important;font-size:11px!important}
+/* v0.6 Supabase demonstration */
+.demo-section{max-width:1230px;margin:12px auto 34px;padding:0 20px}
+.demo-inner{border-top:1px solid #dedad6;padding-top:30px}
+.demo-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.demo-top h2{font-size:23px;letter-spacing:-.5px;margin:0 0 8px}
+.demo-eyebrow{font-size:11px;font-weight:700;letter-spacing:.06em;color:#1b2b5b;margin-bottom:7px}
+.demo-badge{font-size:11px;border:1px solid #1b2b5b;color:#1b2b5b;padding:7px 10px;white-space:nowrap}
+.demo-members{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:17px 0 22px}
+.demo-member{background:#fff;border:1px solid #dedad6;padding:14px}
+.demo-member b{display:block;font-size:14px}.demo-member small{display:block;color:#666;margin-top:5px}
+.demo-places{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.demo-place{border:1px solid #dcd8d4;background:#fff;padding:17px;display:flex;flex-direction:column;gap:12px}
+.demo-place h3{font-size:17px;margin:0;color:#111}
+.demo-category{font-size:11px;color:#666}
+.demo-time{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:5px 0;border-bottom:1px solid #ece9e6}
+.demo-metrics{font-size:12px;background:#f5f3f2;padding:11px;line-height:1.7;color:#555}
+.demo-place button{margin-top:auto}
+.demo-error{border-left:3px solid #a37637;background:#f5eee3;padding:14px;font-size:13px;line-height:1.8}
+.demo-info{color:#696766;font-size:12px;line-height:1.7}
+@media(max-width:700px){.demo-section{padding:0 16px}.demo-places{grid-template-columns:1fr}.demo-members{grid-template-columns:repeat(3,minmax(0,1fr))}.demo-member{padding:10px}}
 </style>
 </head>
 <body>
-<header><div><b>여기가 딱이긴 현대</b><div><small>각자 출발해도, 만날 곳은 공평하게</small></div></div><span class="tag">WEB PREVIEW · v0.5</span></header>
+<header><div><b>여기가 딱이긴 현대</b><div><small>각자 출발해도, 만날 곳은 공평하게</small></div></div><span class="tag">WEB PREVIEW · v0.6</span></header>
 <section class="hero" aria-labelledby="welcomeTitle">
   <div>
     <div class="hero-kicker">A BETTER PLACE TO MEET</div>
     <h1 id="welcomeTitle">친구들과 어디서 만날까요?</h1>
     <p>각자의 출발지를 등록하면 지도에서 한눈에 볼 수 있어요. 모두가 편한 만남의 시작, 여기서 정해보세요.</p>
     <button class="primary hero-action" id="startBtn" type="button">출발지 등록하기</button>
-    <div class="hero-note">현재는 지도·출발지 등록·목적지 선택·길찾기 시연 버전입니다. 자동 추천과 투표는 개발 예정이에요.</div>
+    <div class="hero-note">데모 장소 및 이동 시간은 가상 데이터예요. Supabase에서 실제로 불러오며 실시간 투표는 개발 예정이에요.</div>
   </div>
   <div class="hero-art" aria-hidden="true">
     <svg viewBox="0 0 330 205" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,6 +83,13 @@ main{max-width:1270px;padding:26px 20px 40px;margin:auto;display:grid;grid-templ
     </svg>
   </div>
 </section>
+<section class="demo-section" aria-labelledby="demoTitle"><div class="demo-inner">
+<div class="demo-top"><div><div class="demo-eyebrow">SUPABASE DEMO</div><h2 id="demoTitle">우리 모임 추천 장소</h2><p class="muted">김포·인천·수원에서 출발하는 친구 3명의 시연용 모임입니다. 저장된 후보를 이동 시간 기준으로 비교해 보세요.</p></div><span class="demo-badge">MOCK DATA</span></div>
+<div id="demoState" class="status" role="status">데모 데이터를 불러올 준비 중이에요.</div>
+<div id="demoMembers" class="demo-members" aria-label="참가자 목록"></div>
+<div id="demoPlaces" class="demo-places" aria-label="추천 후보 장소"></div>
+<p class="demo-info">이동 시간 및 추천 장소의 좌표는 실제 주행 측정값이 아닌 가상 시연 데이터입니다. 이 화면은 DB 조회 시연이며, 투표·차량 SDK 연동은 아직 구현되지 않았습니다.</p>
+</div></section>
 <main>
 <section class="panel" id="origins">
 <h2>출발지 등록</h2><p class="muted">모임에 참여할 사람들의 출발지를 입력해 주세요. 입력한 장소는 이 브라우저에만 저장돼요.</p>
@@ -100,6 +127,12 @@ const $=id=>document.getElementById(id);
 // 카카오디벨로퍼스에서 https://affossoffa.github.io 도메인을 허용해야 합니다.
 // 클라이언트 JavaScript 키는 브라우저에 공개되므로 도메인/쿼터 제한을 설정하세요.
 const KAKAO_JS_KEY = 'YOUR_KAKAO_JAVASCRIPT_KEY';
+// Supabase Dashboard → Project Settings → API Keys → Publishable key
+// 공개 브라우저용 키만 입력하세요. sb_secret/service_role 키는 절대 입력 금지.
+const SUPABASE_URL = 'https://gzawmflzuvsmvxlwppcr.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable__jpCCvJxTFUsw786QegSOg_neSVA1YM';
+const DEMO_ROOM_ID = 'ddda404a-0458-4df1-b6fa-f012316d949d';
+
 const STORE='here-hyundai-origins-v02';
 let people=load(); let map=null,places=null,geocoder=null,markers=[],polygon=null,activeSearch=0; let destination=null,destinationMarker=null,destinationInfo=null,destinationRequest=0;
 function load(){try{const v=JSON.parse(localStorage.getItem(STORE));if(Array.isArray(v)&&v.length&&v.every(p=>p&&typeof p.id==='number'&&typeof p.name==='string'))return v.slice(0,10)}catch(_){}return [{id:1,name:'나',place:null},{id:2,name:'친구 A',place:null},{id:3,name:'친구 B',place:null}];}
@@ -200,5 +233,73 @@ function initMap(){
 }
 function fail(s){msg(s,true);$('mapMessage').textContent=s+'\n(출발지 등록 기능은 지도가 연결되면 사용할 수 있어요.)';}
 $('startBtn').onclick=()=>{$('origins').scrollIntoView({behavior:'smooth',block:'start'});};
+
+// DB data is intentionally read-only; no votes are written from the public demo.
+function demoText(node, text){node.textContent=String(text ?? '');}
+async function dbRead(table,select='*'){
+ const url=new URL(`${SUPABASE_URL}/rest/v1/${table}`);
+ url.searchParams.set('select',select);
+ url.searchParams.set('room_id',`eq.${DEMO_ROOM_ID}`);
+ const response=await fetch(url.toString(),{
+   method:'GET',headers:{apikey:SUPABASE_PUBLISHABLE_KEY,Accept:'application/json'},cache:'no-store'
+ });
+ if(!response.ok)throw new Error(`데이터 조회 실패 (${response.status})`);
+ return response.json();
+}
+async function loadDemo(){
+ const state=$('demoState'),membersBox=$('demoMembers'),placesBox=$('demoPlaces');
+ if(!SUPABASE_PUBLISHABLE_KEY || SUPABASE_PUBLISHABLE_KEY==='YOUR_SUPABASE_PUBLISHABLE_KEY'){
+  state.className='demo-error';demoText(state,'DB 연결 준비 중이에요. 개발자가 README의 Supabase 설정을 완료하면 모임 정보를 볼 수 있어요.');return;
+ }
+ state.className='status';demoText(state,'모임 정보를 불러오는 중이에요...');
+ try{
+  const [members,locations]=await Promise.all([
+    dbRead('members','id,name,start_location'),
+    dbRead('places','id,name,category,latitude,longitude,travel_times,is_mock')
+  ]);
+  if(!Array.isArray(members)||!Array.isArray(locations)||!members.length||!locations.length)throw new Error('데모 참가자 또는 장소 데이터가 비어 있어요.');
+  membersBox.replaceChildren();placesBox.replaceChildren();
+  for(const m of members){
+   const item=document.createElement('div');item.className='demo-member';
+   const name=document.createElement('b');demoText(name,m.name);
+   const loc=document.createElement('small');demoText(loc,m.start_location||'출발지 미설정');
+   item.append(name,loc);membersBox.append(item);
+  }
+  const scored=locations.map(place=>{
+   const times=members.map(m=>Number(place.travel_times?.[m.name]));
+   const valid=times.length>0&&times.every(n=>Number.isFinite(n)&&n>=0);
+   return {place,times,valid,max:valid?Math.max(...times):Infinity,total:valid?times.reduce((a,b)=>a+b,0):Infinity};
+  }).sort((a,b)=>a.max-b.max||a.total-b.total);
+  scored.forEach((record,index)=>{
+   const {place,times,valid,max,total}=record;
+   const card=document.createElement('article');card.className='demo-place';
+   const cat=document.createElement('div');cat.className='demo-category';
+   demoText(cat,`${index===0&&valid?'이동 시간 기준 1순위 · ':''}${place.category||'장소'} · 시연 데이터`);
+   const title=document.createElement('h3');demoText(title,place.name);
+   card.append(cat,title);
+   members.forEach((m,i)=>{
+    const r=document.createElement('div');r.className='demo-time';
+    const n=document.createElement('span');demoText(n,m.name);
+    const t=document.createElement('strong');demoText(t,Number.isFinite(times[i])?`${times[i]}분`:'데이터 없음');
+    r.append(n,t);card.append(r);
+   });
+   const stats=document.createElement('div');stats.className='demo-metrics';
+   demoText(stats,valid?`최장 이동 ${max}분 · 평균 ${(total/members.length).toFixed(1)}분 · 시간 차이 ${max-Math.min(...times)}분`:'비교할 이동 시간 데이터가 부족합니다.');
+   card.append(stats);
+   const nav=document.createElement('button');nav.type='button';nav.className='primary full';
+   demoText(nav,'이 위치로 자동차 길찾기');
+   const lat=Number(place.latitude),lng=Number(place.longitude);
+   if(!Number.isFinite(lat)||!Number.isFinite(lng))nav.disabled=true;
+   nav.onclick=()=>{
+    const params=new URLSearchParams({api:'1',destination:`${lat},${lng}`,travelmode:'driving'});
+    window.open(`https://www.google.com/maps/dir/?${params}`,'_blank','noopener,noreferrer');
+   };
+   card.append(nav);placesBox.append(card);
+  });
+  state.className='status';demoText(state,`Supabase 연결 완료 · 참가자 ${members.length}명 · 후보 장소 ${locations.length}곳 (읽기 전용)`);
+ }catch(err){state.className='demo-error';demoText(state,`데모 데이터를 불러오지 못했어요. ${err.message} · URL, Publishable key, RLS 정책을 확인해 주세요.`);}
+}
+
 renderPeople();connect(KAKAO_JS_KEY);
+loadDemo();
 </script></body></html>
