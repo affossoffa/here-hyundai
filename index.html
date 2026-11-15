@@ -35,15 +35,40 @@
 .key-dot.place{background:#fff;border:2px solid #1b2b5b}
 .map-note{color:#666;font-size:11px}
 @media(max-width:650px){.demo-map{min-height:260px;aspect-ratio:1000/610}.map-panel-footer{align-items:flex-start}.map-key{gap:11px}.map-note{font-size:10px}}
+
+/* v0.9: 지도 70% + 세부정보 30% 단일 화면 구성 */
+.meeting-layout{display:grid;grid-template-columns:minmax(0,7fr) minmax(295px,3fr);gap:16px;align-items:stretch}
+.meeting-layout .map-panel{min-width:0;display:flex;flex-direction:column}
+.meeting-layout .demo-map{flex:1;min-height:430px;max-height:555px;aspect-ratio:auto;width:100%}
+.meeting-layout .map-panel-footer{min-height:55px;padding:10px 13px}
+.meeting-layout .map-key{font-size:11px;gap:12px}.meeting-layout .map-note{font-size:10px}
+.place-detail{background:#fff;border:1px solid #dedad6;padding:22px 20px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.detail-heading{display:flex;align-items:center;justify-content:space-between;gap:7px;flex-wrap:wrap}
+.detail-heading .chip{font-size:9px;padding:5px 7px}
+.detail-title{font-size:22px;line-height:1.35;letter-spacing:-.7px;margin:5px 0 0;word-break:keep-all}
+.detail-category{font-size:12px;margin:0 0 9px;color:#777}
+.detail-subtitle{font-size:12px;font-weight:700;color:#1b2b5b;margin-bottom:4px}
+.detail-times{border-top:1px solid #e9e5e0;padding-top:13px;display:grid;gap:1px}
+.detail-time-row{display:flex;align-items:center;justify-content:space-between;gap:6px;border-bottom:1px solid #f0edeb;padding:9px 0;font-size:12px}
+.detail-time-row strong{font-size:14px;white-space:nowrap}
+.detail-member{display:flex;align-items:center;gap:8px;min-width:0}
+.detail-letter{display:inline-grid;place-items:center;width:22px;height:22px;flex-shrink:0;border-radius:50%;background:#1b2b5b;color:white;font-size:11px;font-weight:700}
+.detail-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#dedad6;border:1px solid #dedad6;margin-top:4px}
+.metric-item{background:#f5f3f2;padding:12px 6px;display:grid;gap:6px;text-align:center;min-width:0}
+.metric-item span{color:#666;font-size:10px}.metric-item strong{color:#1b2b5b;font-size:17px;white-space:nowrap}
+.detail-hint{font-size:11px;color:#777;line-height:1.6;margin:1px 0 4px}
+.place-detail>.primary,.place-detail>.secondary{width:100%;margin-top:2px}
+@media(max-width:950px){.meeting-layout{grid-template-columns:minmax(0,1fr)}.meeting-layout .demo-map{min-height:300px;max-height:480px;aspect-ratio:1000/490}.place-detail{padding:20px}.detail-metrics{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.meeting-layout .demo-map{min-height:265px;max-height:360px}.detail-title{font-size:21px}}
 </style>
 </head>
 <body>
-<header><div><strong>여기가 딱이긴 현대</strong><small>각자 출발해도, 만날 곳은 공평하게</small></div><span class="chip">WEB DEMO · v0.8</span></header>
+<header><div><strong>여기가 딱이긴 현대</strong><small>각자 출발해도, 만날 곳은 공평하게</small></div><span class="chip">WEB DEMO · v0.9</span></header>
 <main>
 <section class="hero" style="margin-top:0"><div><div class="eyebrow">A BETTER PLACE TO MEET</div><h1>친구들과 어디서<br/>만날까요?</h1><p>서로 다른 곳에서 출발하는 친구들의 이동 시간을 한눈에 비교하고, 모두에게 편리한 장소를 함께 골라보세요.</p><button class="primary" id="startBtn" type="button">추천 장소 살펴보기</button><p class="subtle">현재는 시연용 가상 주행 시간으로 추천 과정을 보여줍니다.</p></div><div class="hero-art" aria-label="세 명의 출발지와 가운데 만남 장소를 연결한 그림"><svg viewBox="0 0 330 200" role="img" aria-hidden="true"><path d="M45 37 289 51 168 172Z" fill="none" stroke="#1b2b5b" stroke-width="2" stroke-dasharray="6 5"/><path d="M45 37 166 96 289 51M168 172 166 96" fill="none" stroke="#9ca3b8" stroke-width="1.2" stroke-dasharray="3 5"/><circle cx="45" cy="37" r="16" fill="#1b2b5b"/><circle cx="289" cy="51" r="16" fill="#1b2b5b"/><circle cx="168" cy="172" r="16" fill="#1b2b5b"/><g fill="white" font-size="13" font-family="Arial" text-anchor="middle"><text x="45" y="42">A</text><text x="289" y="56">B</text><text x="168" y="177">C</text></g><circle cx="166" cy="96" r="23" fill="#f5f3f2" stroke="#1b2b5b" stroke-width="2"/><path d="m156 96 7 7 15-17" fill="none" stroke="#1b2b5b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div></section>
 <section><div class="section-head"><div><div class="eyebrow">OUR GROUP</div><h2>이번 모임의 출발지</h2><p class="muted">김포 · 인천 · 수원에서 출발하는 3명의 시연용 모임</p></div><span class="chip">3 MEMBERS</span></div><div class="members" id="members"></div></section>
-<section id="demoMapSection"><div class="section-head"><div><div class="eyebrow">MEETING MAP</div><h2>한눈에 보는 우리 모임</h2><p class="muted">세 출발지와 추천 장소를 함께 확인해 보세요. 장소 마커를 누르면 선택할 수 있어요.</p></div><span class="chip">DEMO MAP</span></div>
-<div class="map-panel"><svg id="demoMap" class="demo-map" viewBox="0 0 1000 490" role="img" aria-label="김포, 인천, 수원 출발지와 후보 장소가 표시된 시연용 개념 지도" xmlns="http://www.w3.org/2000/svg">
+<section id="demoMapSection"><div class="section-head"><div><div class="eyebrow">MEETING MAP</div><h2>한눈에 보는 우리 모임</h2><p class="muted">세 출발지와 추천 장소를 함께 확인해 보세요. 장소 마커를 누르면 오른쪽에 이동 시간과 세부정보가 나타나요.</p></div><span class="chip">DEMO MAP</span></div>
+<div class="meeting-layout"><div class="map-panel"><svg id="demoMap" class="demo-map" viewBox="0 0 1000 490" role="img" aria-label="김포, 인천, 수원 출발지와 후보 장소가 표시된 시연용 개념 지도" xmlns="http://www.w3.org/2000/svg">
 <rect width="1000" height="490" fill="#f0efec"/>
 <!-- 실제 도로가 아닌 개념적인 길 모양 -->
 <path class="map-water" d="M0 215C96 200 151 266 203 244S322 161 385 184S481 255 531 219L544 271C465 312 407 252 361 241S245 307 177 307S74 272 0 284Z"/>
@@ -58,7 +83,7 @@
 <path class="map-boundary" d="M174 115L154 356L829 418Z"/>
 <g id="mapStartMarkers"></g><g id="mapPlaceMarkers"></g>
 </svg>
-<div class="map-panel-footer"><div class="map-key"><span><i class="key-dot"></i> 출발지</span><span><i class="key-dot place"></i> 후보 장소 (클릭 가능)</span></div><span class="map-note">시연용 개념 지도 · 실제 지도·도로·좌표 아님</span></div></div></section>
+<div class="map-panel-footer"><div class="map-key"><span><i class="key-dot"></i> 출발지</span><span><i class="key-dot place"></i> 후보 장소 (클릭 가능)</span></div><span class="map-note">시연용 개념 지도 · 실제 지도·도로·좌표 아님</span></div></div><aside class="place-detail" id="placeDetail" aria-label="선택한 장소 상세정보" aria-live="polite"><p class="muted">장소 정보를 준비하고 있어요.</p></aside></div></section>
 <section id="recommendations"><div class="section-head"><div><div class="eyebrow">RECOMMENDATION</div><h2>모두에게 딱 맞는 장소</h2><p class="muted">저장된 후보들의 가상 이동 시간을 기준으로 추천 순위를 계산합니다.</p></div><div class="toolbar"><label for="sort">추천 방식</label><select id="sort"><option value="fair">공평한 만남</option><option value="fast">빠른 만남</option><option value="gap">시간 차이 최소</option></select></div></div><div id="dbStatus" class="notice" role="status">모임 정보를 불러오는 중이에요.</div><div class="places" id="places"></div></section>
 <section><div class="section-head"><div><div class="eyebrow">YOUR CHOICE</div><h2>우리의 만남 장소</h2></div></div><div class="summary"><div><h3 id="chosenTitle">아직 선택한 장소가 없어요.</h3><p id="chosenText">마음에 드는 장소를 선택하면 이곳에서 확인할 수 있어요.</p><p class="subtle">장소 선택은 이 브라우저에서만 저장됩니다. 실제 친구 간 실시간 투표는 이후 구현할 예정입니다.</p></div><button type="button" class="secondary" id="navBtn" disabled>차량 내비게이션 연동 예정</button></div></section>
 <footer class="foot">이 버전은 공개 시연용 웹 프로토타입입니다. 지도는 실제 지리 데이터를 사용하지 않은 개념도입니다. 실제 자동차 이동 시간·장소 좌표를 검증하지 않았고, Pleos Connect / NaviHelper SDK 연결 및 실시간 투표는 구현되지 않았습니다. 카카오맵과 Google 지도 연결은 사용하지 않습니다.</footer>
@@ -77,7 +102,7 @@ const FALLBACK_PLACES=[
  {id:'demo-p2',name:'시연 맛집 B',category:'음식점',travel_times:{'나':48,'친구 A':30,'친구 B':35},is_mock:true},
  {id:'demo-p3',name:'시연 문화공간 C',category:'문화시설',travel_times:{'나':55,'친구 A':35,'친구 B':25},is_mock:true}
 ];
-let members=FALLBACK_MEMBERS,places=FALLBACK_PLACES,choiceId=null;
+let members=FALLBACK_MEMBERS,places=FALLBACK_PLACES,choiceId=null,previewId=null;
 const $=id=>document.getElementById(id);
 const SVG_NS='http://www.w3.org/2000/svg';
 const svgEl=(name,attrs)=>{const e=document.createElementNS(SVG_NS,name);Object.entries(attrs||{}).forEach(([k,v])=>e.setAttribute(k,v));return e};
@@ -86,7 +111,7 @@ const DEMO_PLACE_POINTS=[{x:405,y:245},{x:548,y:295},{x:667,y:342},{x:550,y:205}
 function renderDemoMap(){
  const starts=$('mapStartMarkers'),pins=$('mapPlaceMarkers');starts.replaceChildren();pins.replaceChildren();
  members.forEach((m,i)=>{const pt=DEMO_START_POINTS[i%DEMO_START_POINTS.length];const g=svgEl('g',{'class':'map-pin-start'});g.append(svgEl('circle',{cx:pt.x,cy:pt.y,r:19}));const t=svgEl('text',{x:pt.x,y:pt.y+1});t.textContent=String.fromCharCode(65+i);g.append(t);const title=svgEl('title');title.textContent=m.name+' · '+m.start_location+' 출발';g.append(title);starts.append(g)});
- places.forEach((p,i)=>{const pt=DEMO_PLACE_POINTS[i%DEMO_PLACE_POINTS.length];const selected=choiceId===p.id;const g=svgEl('g',{'class':'map-pin-place'+(selected?' selected':''),tabindex:'0',role:'button','aria-label':p.name+' 선택'});g.append(svgEl('circle',{'class':'pin-bubble',cx:pt.x,cy:pt.y,r:20}));const no=svgEl('text',{'class':'pin-number',x:pt.x,y:pt.y+1});no.textContent=String(i+1);g.append(no);const label=svgEl('text',{'class':'map-pin-label',x:pt.x+26,y:pt.y-14});label.textContent=p.name;g.append(label);const title=svgEl('title');title.textContent=p.name+' · 클릭하여 선택';g.append(title);const choose=()=>{choiceId=p.id;try{localStorage.setItem('hyundai-demo-place',p.id)}catch(_){};render();};g.addEventListener('click',choose);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}});pins.append(g)});
+ places.forEach((p,i)=>{const pt=DEMO_PLACE_POINTS[i%DEMO_PLACE_POINTS.length];const selected=(previewId||choiceId)===p.id;const g=svgEl('g',{'class':'map-pin-place'+(selected?' selected':''),tabindex:'0',role:'button','aria-label':p.name+' 상세정보 보기'});g.append(svgEl('circle',{'class':'pin-bubble',cx:pt.x,cy:pt.y,r:20}));const no=svgEl('text',{'class':'pin-number',x:pt.x,y:pt.y+1});no.textContent=String(i+1);g.append(no);const label=svgEl('text',{'class':'map-pin-label',x:pt.x+26,y:pt.y-14});label.textContent=p.name;g.append(label);const title=svgEl('title');title.textContent=p.name+' · 클릭하여 상세정보 보기';g.append(title);const choose=()=>{previewId=p.id;render();};g.addEventListener('click',choose);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}});pins.append(g)});
 }
 
 const node=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=String(text);return e};
@@ -96,9 +121,33 @@ function render(){const mem=$('members');mem.replaceChildren();members.forEach((
  const sorted=places.map(p=>({...score(p),place:p}));const mode=$('sort').value;sorted.sort((a,b)=>{const metric=mode==='fast'?'sum':mode==='gap'?'gap':'maximum';return a[metric]-b[metric]||a.maximum-b.maximum||a.sum-b.sum});
  const list=$('places');list.replaceChildren();sorted.forEach((v,i)=>{const p=v.place,card=node('article','place'+(i===0?' top':''));const meta=node('div','meta');meta.append(node('span','',p.category||'장소'),node('span','rank',i===0?'추천 1순위':'후보 '+(i+1)));card.append(meta,node('h3','',p.name));members.forEach((m,j)=>{const row=node('div','time');row.append(node('span','',m.name+' · '+m.start_location),node('b','',Number.isFinite(v.times[j])?v.times[j]+'분':'정보 없음'));card.append(row)});
  const avg=v.valid?(v.sum/members.length).toFixed(1):'-';card.append(node('div','metrics',v.valid?`최장 이동 ${v.maximum}분 · 평균 ${avg}분 · 이동 시간 차이 ${v.gap}분`:'이동 시간 정보가 부족합니다.'));
- const actions=node('div','actions'),select=node('button',choiceId===p.id?'primary':'secondary',choiceId===p.id?'✓ 선택한 장소':'이 장소 선택하기');select.type='button';select.onclick=()=>{choiceId=p.id;try{localStorage.setItem('hyundai-demo-place',p.id)}catch(_){};render()};actions.append(select);card.append(actions);list.append(card)});
- renderDemoMap();
+ const actions=node('div','actions'),select=node('button',choiceId===p.id?'primary':'secondary',choiceId===p.id?'✓ 선택한 장소':'이 장소 선택하기');select.type='button';select.onclick=()=>{choiceId=p.id;previewId=p.id;try{localStorage.setItem('hyundai-demo-place',p.id)}catch(_){};render()};actions.append(select);card.append(actions);list.append(card)});
+ renderDemoMap();renderPlaceDetail();
  const selected=places.find(p=>p.id===choiceId);$('chosenTitle').textContent=selected?selected.name:'아직 선택한 장소가 없어요.';$('chosenText').textContent=selected?'선택한 장소입니다. 차량 연동은 Pleos Connect용 Android 앱 개발 후 사용할 수 있습니다.':'마음에 드는 장소를 선택하면 이곳에서 확인할 수 있어요.';
+}
+function renderPlaceDetail(){
+ const detail=$('placeDetail');detail.replaceChildren();
+ const selected=places.find(p=>p.id===(previewId||choiceId)) || places[0];
+ if(!selected){detail.append(node('p','muted','아직 추천 장소가 없습니다.'));return;}
+ const values=score(selected),placeIndex=places.findIndex(p=>p.id===selected.id);
+ const header=node('div','detail-heading');header.append(node('span','eyebrow','SELECTED PLACE'),node('span','chip',selected.is_mock?'MOCK DATA':'PLACE'));detail.append(header);
+ detail.append(node('h3','detail-title',selected.name),node('p','detail-category',(selected.category||'추천 장소')+' · 시연용 장소'));
+ const list=node('div','detail-times');list.append(node('div','detail-subtitle','참가자별 예상 이동 시간'));
+ members.forEach((m,i)=>{
+   const row=node('div','detail-time-row');
+   const left=node('div','detail-member');left.append(node('span','detail-letter',String.fromCharCode(65+i)),node('span','',m.name+' · '+(m.start_location||'출발지')));
+   row.append(left,node('strong','',Number.isFinite(values.times[i])?values.times[i]+'분':'정보 없음'));list.append(row);
+ });detail.append(list);
+ const metrics=node('div','detail-metrics');
+ if(values.valid){
+   [["최장 이동",values.maximum+'분'],["평균 이동",(values.sum/members.length).toFixed(1)+'분'],["시간 차이",values.gap+'분']].forEach(([title,value])=>{const x=node('div','metric-item');x.append(node('span','',title),node('strong','',value));metrics.append(x)});
+ }else metrics.append(node('p','muted','이동 시간 정보가 부족합니다.'));
+ detail.append(metrics);
+ const hint=node('p','detail-hint','표시된 이동 시간과 지도 위치는 실제 경로 데이터가 아닌 시연용 가상 값입니다.');detail.append(hint);
+ const pick=node('button',choiceId===selected.id?'primary':'primary',choiceId===selected.id?'✓ 선택된 만남 장소':'이 장소로 결정하기');pick.type='button';pick.disabled=choiceId===selected.id;
+ pick.addEventListener('click',()=>{choiceId=selected.id;previewId=selected.id;try{localStorage.setItem('hyundai-demo-place',selected.id)}catch(_){};render()});detail.append(pick);
+ const nav=node('button','secondary','차량 내비게이션 연동 예정');nav.type='button';nav.disabled=true;detail.append(nav);
+ const state=node('p','detail-hint',choiceId===selected.id?'현재 선택한 모임 장소입니다.':'지도에서 다른 번호를 누르면 이 상세정보가 바뀝니다.');detail.append(state);
 }
 async function readTable(table,fields){const url=new URL(SUPABASE_URL+'/rest/v1/'+table);url.searchParams.set('select',fields);url.searchParams.set('room_id','eq.'+DEMO_ROOM_ID);const resp=await fetch(url.toString(),{headers:{apikey:SUPABASE_PUBLISHABLE_KEY,Accept:'application/json'},cache:'no-store'});if(!resp.ok)throw new Error('HTTP '+resp.status);return resp.json()}
 async function setup(){try{choiceId=localStorage.getItem('hyundai-demo-place')}catch(_){};render();if(!keyReady){$('dbStatus').textContent='시연용 내장 목데이터를 표시하고 있어요. Supabase 연결은 개발자가 Publishable key를 설정하면 활성화됩니다.';return}
